@@ -1,6 +1,6 @@
 # otaku_world
 
-A new Flutter project.
+Project for Otaku World application.
 
 ## Getting Started
 
