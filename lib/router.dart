@@ -8,6 +8,7 @@ import 'package:otaku_world/features/onboarding/screens/onboarding_screen.dart';
 import 'package:otaku_world/features/settings/category_selection_screen.dart';
 import 'package:otaku_world/features/social/screen/social_screen.dart';
 import 'package:otaku_world/main.dart';
+import 'package:otaku_world/observers/go_route_observer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'features/login/screens/login_screen.dart';
@@ -18,15 +19,44 @@ final _shellNavigatorKey = GlobalKey<NavigatorState>();
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
+  debugLogDiagnostics: true,
+  observers: [CustomRouteObserver()],
   routes: [
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => LoginScreen(),
+    ),
+    GoRoute(
+      path: '/onBoarding',
+      builder: (context, state) => OnBoardingScreen(),
+    ),
+    GoRoute(
+      path: '/categorySelection',
+      builder: (context, state) => CategorySelectionScreen(),
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
-      builder: (context, state, child) => AppScaffold(childPage: child),
+      builder: (context, state, child) => AppScaffold(child: child),
       routes: [
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
           path: '/home',
           builder: (context, state) => HomeScreen(),
+          redirect: (context, state) async {
+            final sharedPref = await SharedPreferences.getInstance();
+            final isFirstTime = sharedPref.getBool('is_first_time');
+
+            if (isFirstTime == null) {
+              return '/onBoarding';
+            } else {
+              final accessToken = sharedPref.getString('access_token');
+              if (accessToken == null) {
+                return '/login';
+              } else {
+                return null;
+              }
+            }
+          },
         ),
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,

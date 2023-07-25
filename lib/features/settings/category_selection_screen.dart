@@ -13,7 +13,9 @@ class CategorySelectionScreen extends StatelessWidget {
         leading: (context.canPop()) ? CustomBackButton(context: context) : null,
         backgroundColor: AppColors.raisinBlack,
         elevation: 0,
-
+      ),
+      body: Center(
+        child: Text('Category Selection Screen', style: TextStyle(color: Colors.white),),
       ),
     );
   }

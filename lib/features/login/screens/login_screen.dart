@@ -138,9 +138,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ref
                     .read(sharedPreferencesProvider)
                     .setBool('is_first_time', false);
-
+                // Go to [CategorySelectionScreen]
+                context.go('/categorySelection');
               }else {
-                context.pushReplacement('/');
+                context.go('/home');
               }
             },
           );

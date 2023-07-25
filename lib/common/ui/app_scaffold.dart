@@ -4,34 +4,22 @@ import 'package:go_router/go_router.dart';
 import 'package:otaku_world/constants/assets_constants.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:scroll_bottom_navigation_bar/scroll_bottom_navigation_bar.dart';
 
-class AppScaffold extends HookWidget {
-  const AppScaffold({super.key, required this.childPage});
+class AppScaffold extends StatelessWidget {
+  const AppScaffold({super.key, required this.child});
 
-  final Widget childPage;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
-    final scrollController = useScrollController();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Otaku World'),
       ),
-      body: ValueListenableBuilder<int>(
-        valueListenable: scrollController.bottomNavigationBar.tabNotifier,
-        builder: (context, value, child) {
-          return SingleChildScrollView(
-            controller: scrollController,
-            child: childPage,
-          );
-        },
-      ),
+      body: child,
       bottomNavigationBar: SizedBox(
-        height: 72,
-        child: ScrollBottomNavigationBar(
-          controller: scrollController,
+        height: 75,
+        child: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           showUnselectedLabels: true,
           currentIndex: _calculateSelectedIndex(context),

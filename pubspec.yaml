@@ -45,7 +45,6 @@ dependencies:
   shared_preferences: ^2.2.0
   graphql_flutter:
   riverpod_annotation:
-  scroll_bottom_navigation_bar:
 
 dev_dependencies:
   flutter_test:
