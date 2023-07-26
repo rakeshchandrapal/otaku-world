@@ -1,7 +1,4 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/common/ui/primary_button.dart';
 import 'package:otaku_world/constants/assets_constants.dart';
@@ -9,9 +6,8 @@ import 'package:otaku_world/constants/string_constants.dart';
 import 'package:otaku_world/features/onboarding/widgets/next_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otaku_world/providers/shared_preferences.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../theme/colors.dart';
+import 'package:otaku_world/theme/colors.dart';
 
 class OnBoardingScreen extends ConsumerStatefulWidget {
   const OnBoardingScreen({super.key});
@@ -86,9 +82,9 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
                   bottom: 45,
                   child: PrimaryButton(
                     onTap: () {
-                      // ref
-                      //     .read(sharedPreferencesProvider)
-                      //     .setBool('is_first_time', false);
+                      ref
+                          .read(sharedPreferencesProvider)
+                          .setBool('is_first_time', false);
                       context.push('/login');
                     },
                     label: 'Get Started',
@@ -215,7 +211,6 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
                         heading,
                         style:
                             Theme.of(context).textTheme.displayMedium?.copyWith(
-                                  color: AppColors.white,
                                   fontFamily: 'Poppins-Semi-Bold',
                                 ),
                       ),
@@ -229,7 +224,6 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
                         subheading,
                         style:
                             Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  color: AppColors.white,
                                   fontFamily: 'Poppins',
                                 ),
                       ),

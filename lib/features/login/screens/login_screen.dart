@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:otaku_world/common/ui/back_button.dart';
 import 'package:otaku_world/common/ui/primary_button.dart';
 import 'package:otaku_world/common/ui/primary_outlined_button.dart';
+import 'package:otaku_world/common/ui/simple_app_bar.dart';
 import 'package:otaku_world/constants/assets_constants.dart';
 import 'package:otaku_world/constants/string_constants.dart';
 import 'package:otaku_world/providers/shared_preferences.dart';
@@ -36,10 +36,13 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: (context.canPop()) ? CustomBackButton(context: context) : null,
-        backgroundColor: AppColors.raisinBlack,
-        elevation: 0,
+      // appBar: AppBar(
+      //   leading: (context.canPop()) ? CustomBackButton(context: context) : null,
+      //   backgroundColor: AppColors.raisinBlack,
+      //   elevation: 0,
+      // ),
+      appBar: const SimpleAppBar(
+        title: '',
       ),
       body: Center(
         child: Column(
@@ -57,8 +60,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   child: Text(
                     LoginConstants.loginToAniListHeading,
                     style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                          fontFamily: 'Poppins',
-                          color: AppColors.white,
                           fontWeight: FontWeight.w600,
                         ),
                   ),
@@ -133,13 +134,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               .then(
             (value) {
               dev.log('Stored token: $value', name: 'Auth');
-              final firstTime = ref.read(sharedPreferencesProvider).getBool('is_first_time');
-              if (firstTime == null) {
-                ref
-                    .read(sharedPreferencesProvider)
-                    .setBool('is_first_time', false);
+              final categorySelected = ref.read(sharedPreferencesProvider).getBool('category_selected');
+              if (categorySelected == null) {
+                // ref
+                //     .read(sharedPreferencesProvider)
+                //     .setBool('category_selected', true);
                 // Go to [CategorySelectionScreen]
-
                 context.go('/categorySelection');
               }else {
                 context.go('/home');
