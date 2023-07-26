@@ -7,7 +7,6 @@ import 'package:otaku_world/features/my_list/screens/my_list_screen.dart';
 import 'package:otaku_world/features/onboarding/screens/onboarding_screen.dart';
 import 'package:otaku_world/features/settings/category_selection_screen.dart';
 import 'package:otaku_world/features/social/screen/social_screen.dart';
-import 'package:otaku_world/main.dart';
 import 'package:otaku_world/observers/go_route_observer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
