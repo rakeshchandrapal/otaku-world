@@ -23,15 +23,15 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/login',
-      builder: (context, state) => LoginScreen(),
+      builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(
       path: '/onBoarding',
-      builder: (context, state) => OnBoardingScreen(),
+      builder: (context, state) => const OnBoardingScreen(),
     ),
     GoRoute(
       path: '/categorySelection',
-      builder: (context, state) => CategorySelectionScreen(),
+      builder: (context, state) => const CategorySelectionScreen(),
     ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
@@ -40,7 +40,16 @@ final router = GoRouter(
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
           path: '/home',
-          builder: (context, state) => const HomeScreen(),
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              child: const HomeScreen(),
+              transitionDuration: Duration.zero,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return child;
+              },
+            );
+          },
           redirect: (context, state) async {
             final sharedPref = await SharedPreferences.getInstance();
             final isFirstTime = sharedPref.getBool('is_first_time');
@@ -55,7 +64,7 @@ final router = GoRouter(
                 final categorySelected = sharedPref.getStringList('categories');
                 if (categorySelected == null) {
                   return '/categorySelection';
-                }else {
+                } else {
                   return null;
                 }
               }
@@ -65,58 +74,46 @@ final router = GoRouter(
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
           path: '/discover',
-          builder: (context, state) => DiscoverScreen(),
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              child: const DiscoverScreen(),
+              transitionDuration: Duration.zero,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return child;
+              },
+            );
+          },
         ),
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
           path: '/social',
-          builder: (context, state) => SocialScreen(),
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              child: const SocialScreen(),
+              transitionDuration: Duration.zero,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return child;
+              },
+            );
+          },
         ),
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
           path: '/myList',
-          builder: (context, state) => MyListScreen(),
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              child: const MyListScreen(),
+              transitionDuration: Duration.zero,
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                return child;
+              },
+            );
+          },
         ),
       ],
     ),
   ],
 );
-
-// final router = GoRouter(
-//   routes: [
-//     GoRoute(
-//       path: '/',
-//       builder: (context, state) => const HomePage(),
-//       redirect: (context, state) async {
-//         final sharedPref = await SharedPreferences.getInstance();
-//         final isFirstTime = sharedPref.getBool('is_first_time');
-//
-//         if (isFirstTime == null) {
-//           return '/onBoarding';
-//         }else {
-//           final accessToken = sharedPref.getString('access_token');
-//           if (accessToken == null) {
-//             return '/login';
-//           }else {
-//             return null;
-//           }
-//         }
-//       },
-//       routes: [
-//
-//       ],
-//     ),
-//     GoRoute(
-//       path: '/onBoarding',
-//       builder: (context, state) => const OnBoardingScreen(),
-//     ),
-//     GoRoute(
-//       path: '/login',
-//       builder: (context, state) => const LoginScreen(),
-//     ),
-//     GoRoute(
-//       path: '/categorySelection',
-//       builder: (context, state) => const CategorySelectionScreen(),
-//     ),
-//   ],
-// );
