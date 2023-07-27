@@ -40,7 +40,7 @@ final router = GoRouter(
         GoRoute(
           parentNavigatorKey: _shellNavigatorKey,
           path: '/home',
-          builder: (context, state) => HomeScreen(),
+          builder: (context, state) => const HomeScreen(),
           redirect: (context, state) async {
             final sharedPref = await SharedPreferences.getInstance();
             final isFirstTime = sharedPref.getBool('is_first_time');
@@ -52,7 +52,12 @@ final router = GoRouter(
               if (accessToken == null) {
                 return '/login';
               } else {
-                return null;
+                final categorySelected = sharedPref.getBool('category_selected');
+                if (categorySelected == null) {
+                  return '/categorySelection';
+                }else {
+                  return null;
+                }
               }
             }
           },

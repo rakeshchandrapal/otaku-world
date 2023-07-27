@@ -25,3 +25,9 @@ class OnBoardingConstants {
   static const String page4Subheading =
       'Stay up-to-date with the latest activities and updates from your friends, followers and global users';
 }
+
+class CategorySelectionConstants {
+  static const String chooseInterest = "Choose your interest and get the best anime recommendations. Don't worry, you can always change it later.";
+
+  static const String leastSelection = '(Choose at least 3)';
+}
