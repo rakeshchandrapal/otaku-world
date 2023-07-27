@@ -16,4 +16,5 @@ class AppColors {
   static const Color chineseWhite = Color(0xFFE0E0E0);
   static const Color black = Color(0xFF000000);
   static const Color chineseBlack = Color(0xFF151515);
+  static const Color transparent = Colors.transparent;
 }
