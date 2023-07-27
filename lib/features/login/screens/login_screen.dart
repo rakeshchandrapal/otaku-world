@@ -10,6 +10,7 @@ import 'package:otaku_world/common/ui/primary_outlined_button.dart';
 import 'package:otaku_world/common/ui/simple_app_bar.dart';
 import 'package:otaku_world/constants/assets_constants.dart';
 import 'package:otaku_world/constants/string_constants.dart';
+import 'package:otaku_world/providers/graphql.dart';
 import 'package:otaku_world/providers/shared_preferences.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
@@ -134,14 +135,16 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               .then(
             (value) {
               dev.log('Stored token: $value', name: 'Auth');
-              final categorySelected = ref.read(sharedPreferencesProvider).getBool('category_selected');
+              // Reset graphql client provider so authorized requests can be sent
+              ref.read(graphQLProvider.notifier).reset();
+
+              final categorySelected = ref
+                  .read(sharedPreferencesProvider)
+                  .getStringList('categories');
               if (categorySelected == null) {
-                // ref
-                //     .read(sharedPreferencesProvider)
-                //     .setBool('category_selected', true);
                 // Go to [CategorySelectionScreen]
                 context.go('/categorySelection');
-              }else {
+              } else {
                 context.go('/home');
               }
             },
