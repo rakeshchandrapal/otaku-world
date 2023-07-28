@@ -20,13 +20,6 @@ class CategorySelectionScreen extends StatefulHookConsumerWidget {
 
 class _CategorySelectionScreenState
     extends ConsumerState<CategorySelectionScreen> {
-  final List<String> categoryList = [
-    'Shonen',
-    'Action',
-    'Drama',
-    'Comedy',
-    'R',
-  ];
 
   List<String> selectedCategoryList = [];
 

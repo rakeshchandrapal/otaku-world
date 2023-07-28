@@ -59,6 +59,14 @@ dev_dependencies:
   build_runner:
   graphql_codegen:
   riverpod_generator:
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android:
+    generate: true
+    adaptive_icon_background: '#202020'
+  image_path: assets/app_logo.png
+  adaptive_icon_background: '#202020'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
