@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:otaku_world/graphql/__generated/graphql/viewer.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
+import 'package:otaku_world/utils/ui_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:developer' as dev;
@@ -72,5 +75,94 @@ class GraphQLBuilder<T> extends StatelessWidget {
     }
 
     return builder(hook.result.parsedData as T);
+  }
+}
+
+/// This will be used for building user avatar / profile photo
+class GraphQLAvatarBuilder extends StatelessWidget {
+  const GraphQLAvatarBuilder({super.key, required this.hook});
+
+  final QueryHookResult<Query$Viewer> hook;
+
+  @override
+  Widget build(BuildContext context) {
+    if (hook.result.isLoading && hook.result.data == null) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 10,
+        ),
+        child: CircleAvatar(
+          radius: 20,
+          backgroundColor: AppColors.chineseWhite,
+          child: Icon(Icons.person),
+        ),
+      );
+    }
+
+    if (hook.result.hasException) {
+      if (hook.result.exception!.linkException != null &&
+          hook.result.exception!.linkException is ServerException) {
+        dev.log('Got error: ${hook.result.exception?.linkException}');
+        var message = (hook.result.exception!.linkException as ServerException)
+            .parsedResponse
+            ?.errors
+            ?.first
+            .message;
+        if (message == 'Invalid token') {
+          return ElevatedButton(
+            onPressed: () async {
+              var settings = await SharedPreferences.getInstance();
+              settings.remove('access_token').then(
+                (value) {
+                  context.go('/login');
+                },
+              );
+            },
+            child: const Text('Go to LogIn Page'),
+          );
+        } else {
+          return const Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 10,
+            ),
+            child: CircleAvatar(
+              radius: 20,
+              backgroundColor: AppColors.chineseWhite,
+              child: Icon(Icons.person),
+            ),
+          );
+        }
+      }
+
+      if (hook.result.data == null) {
+        return const Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          child: CircleAvatar(
+            radius: 20,
+            backgroundColor: AppColors.chineseWhite,
+            child: Icon(Icons.person),
+          ),
+        );
+      }
+    }
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+      ),
+      child: GestureDetector(
+        onTap: () {
+          showSnackBar(context, 'Coming soon...');
+        },
+        child: CircleAvatar(
+          radius: 20,
+          backgroundImage: NetworkImage(
+            hook.result.parsedData!.Viewer!.avatar!.medium!,
+          ),
+        ),
+      ),
+    );
   }
 }

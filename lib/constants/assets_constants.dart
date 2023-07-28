@@ -15,6 +15,7 @@ class AssetsConstants {
   static const String nextButton = '$_buttonsPath/next-button.svg';
 
   static const String appLogo = 'assets/logo.svg';
+  static const String appLogoHorizontal = 'assets/app_logo_horizontal.svg';
 
   // Bottom Navigation Icons
   static const String home = '$_iconsPath/home.svg';

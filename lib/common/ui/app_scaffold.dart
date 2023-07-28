@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:otaku_world/common/ui/main_app_bar.dart';
 import 'package:otaku_world/constants/assets_constants.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -13,9 +14,7 @@ class AppScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Otaku World'),
-      ),
+      appBar: const MainAppBar(),
       body: child,
       bottomNavigationBar: SizedBox(
         height: 75,
