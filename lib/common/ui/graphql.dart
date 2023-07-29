@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otaku_world/graphql/__generated/graphql/viewer.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
@@ -10,17 +9,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:developer' as dev;
 
 class GraphQLBuilder<T> extends StatelessWidget {
-  const GraphQLBuilder({super.key, required this.builder, required this.hook});
+  const GraphQLBuilder({super.key, required this.builder, required this.hook, required this.loadingBuilder});
 
   final Widget Function(T result) builder;
+  final Widget Function() loadingBuilder;
   final QueryHookResult<T> hook;
 
   @override
   Widget build(BuildContext context) {
     if (hook.result.isLoading && hook.result.data == null) {
-      return const Center(
-        child: CircularProgressIndicator.adaptive(),
-      );
+      return loadingBuilder();
     }
 
     if (hook.result.hasException) {

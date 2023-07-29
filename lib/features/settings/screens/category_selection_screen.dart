@@ -74,6 +74,11 @@ class _CategorySelectionScreenState
                   ),
                 );
               },
+              loadingBuilder: () {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
             ),
             Padding(
               padding: const EdgeInsets.only(

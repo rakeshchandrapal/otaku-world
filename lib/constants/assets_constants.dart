@@ -1,6 +1,7 @@
 class AssetsConstants {
   static const String _imageAssetsPath = 'assets/images';
   static const String _onBoardingImagesPath = '$_imageAssetsPath/on_boarding';
+  static const String _placeholderImagesPath = '$_imageAssetsPath/placeholders';
   static const String _iconsPath = 'assets/icons';
   static const String _buttonsPath = 'assets/buttons';
 
@@ -17,9 +18,14 @@ class AssetsConstants {
   static const String appLogo = 'assets/logo.svg';
   static const String appLogoHorizontal = 'assets/app_logo_horizontal.svg';
 
+  static const String searchSmall = '$_iconsPath/search-small.svg';
+
   // Bottom Navigation Icons
   static const String home = '$_iconsPath/home.svg';
   static const String search = '$_iconsPath/search.svg';
   static const String group = '$_iconsPath/user-group.svg';
   static const String bulletList = '$_iconsPath/bullet-list.svg';
+
+  // Image placeholders
+  static const String placeHolderImage85x120 = '$_placeholderImagesPath/85x120.png';
 }

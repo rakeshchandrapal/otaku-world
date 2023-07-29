@@ -31,3 +31,7 @@ class CategorySelectionConstants {
 
   static const String leastSelection = '(Choose at least 3)';
 }
+
+class HomeConstants {
+  static const String discover = 'Discover what interests you...';
+}

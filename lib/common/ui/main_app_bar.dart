@@ -5,7 +5,6 @@ import 'package:otaku_world/common/ui/graphql.dart';
 import 'package:otaku_world/constants/assets_constants.dart';
 import 'package:otaku_world/graphql/__generated/graphql/viewer.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
-import 'package:otaku_world/utils/ui_utils.dart';
 
 class MainAppBar extends HookConsumerWidget implements PreferredSizeWidget {
   const MainAppBar({super.key});

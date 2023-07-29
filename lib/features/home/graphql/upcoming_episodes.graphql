@@ -1,0 +1,21 @@
+query GetUpcomingEpisodes {
+    Page(perPage: 10) {
+        media(status: RELEASING, sort: [POPULARITY_DESC], type: ANIME) {
+            id
+            title {
+                romaji
+                english
+                native
+            }
+            coverImage {
+                large
+            }
+            airingSchedule(notYetAired: true, perPage: 1) {
+                nodes {
+                    timeUntilAiring
+                    episode
+                }
+            }
+        }
+    }
+}
