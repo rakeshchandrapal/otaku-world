@@ -19,6 +19,11 @@ class AssetsConstants {
   static const String appLogoHorizontal = 'assets/app_logo_horizontal.svg';
 
   static const String searchSmall = '$_iconsPath/search-small.svg';
+  static const String chatBubble = '$_iconsPath/chat-bubble.svg';
+  static const String calendar = '$_iconsPath/calendar.svg';
+  static const String doubleArrowRight = '$_iconsPath/double-arrow-right.svg';
+  static const String viewSlider = '$_iconsPath/view-slider.svg';
+  static const String star = '$_iconsPath/star.svg';
 
   // Bottom Navigation Icons
   static const String home = '$_iconsPath/home.svg';
@@ -28,4 +33,5 @@ class AssetsConstants {
 
   // Image placeholders
   static const String placeHolderImage85x120 = '$_placeholderImagesPath/85x120.png';
+  static const String placeHolderImage115x169 = '$_placeholderImagesPath/115x169.png';
 }

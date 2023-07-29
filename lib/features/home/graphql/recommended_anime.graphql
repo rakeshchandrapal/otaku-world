@@ -1,0 +1,16 @@
+query GetRecommendedAnime($categories: [String]) {
+    Page(perPage:10) {
+        media(genre_in:$categories, sort: [POPULARITY_DESC], type: ANIME) {
+            id
+            title {
+                english
+                romaji
+                native
+            }
+            coverImage {
+                large
+            }
+            meanScore
+        }
+    }
+}

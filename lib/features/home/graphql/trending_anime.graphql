@@ -1,0 +1,16 @@
+query GetTrendingAnime {
+    Page(perPage: 10) {
+        media(sort: [TRENDING_DESC], type: ANIME) {
+            id
+            title {
+                english
+                romaji
+                native
+            }
+            coverImage {
+                large
+            }
+            meanScore
+        }
+    }
+}

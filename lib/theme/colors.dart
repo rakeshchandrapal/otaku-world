@@ -11,6 +11,7 @@ class AppColors {
   static const Color maxRed = Color(0xFFDB1E1E);
   static const Color white = Color(0xFFFFFFFF);
   static const Color raisinBlack = Color(0xFF202020);
+  static const Color darkCharcoal = Color(0xFF303030);
   static const Color jet = Color(0xFF353535);
   static const Color blackOlive = Color(0xFF404040);
   static const Color chineseWhite = Color(0xFFE0E0E0);

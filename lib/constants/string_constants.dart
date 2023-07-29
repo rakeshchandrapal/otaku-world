@@ -34,4 +34,10 @@ class CategorySelectionConstants {
 
 class HomeConstants {
   static const String discover = 'Discover what interests you...';
+
+  static const String reviewsHeading = 'Reviews';
+  static const String reviewsSubheading = 'Discover what fans are saying, Get insights from fellow anime lovers and Share your thoughts and reviews';
+
+  static const String calendarHeading = 'Calendar';
+  static const String calendarSubheading = 'Stay updated with upcoming episodes and plan your anime viewing schedule';
 }

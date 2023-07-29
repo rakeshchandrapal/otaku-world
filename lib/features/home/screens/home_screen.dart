@@ -3,10 +3,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otaku_world/common/ui/graphql.dart';
+import 'package:otaku_world/common/ui/media_section.dart';
 import 'package:otaku_world/constants/assets_constants.dart';
 import 'package:otaku_world/constants/string_constants.dart';
+import 'package:otaku_world/features/home/widgets/feature_card.dart';
 import 'package:otaku_world/features/home/widgets/upcoming_episode_card.dart';
+import 'package:otaku_world/graphql/__generated/features/home/graphql/recommended_anime.graphql.dart';
+import 'package:otaku_world/graphql/__generated/features/home/graphql/recommended_manga.graphql.dart';
+import 'package:otaku_world/graphql/__generated/features/home/graphql/trending_anime.graphql.dart';
+import 'package:otaku_world/graphql/__generated/features/home/graphql/trending_manga.graphql.dart';
 import 'package:otaku_world/graphql/__generated/features/home/graphql/upcoming_episodes.graphql.dart';
+import 'package:otaku_world/providers/shared_preferences.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
@@ -16,23 +23,113 @@ class HomeScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var upcomingEpisodesHook = useQuery$GetUpcomingEpisodes();
+    var recommendedAnimeHook = useQuery$GetRecommendedAnime(
+      Options$Query$GetRecommendedAnime(
+        variables: Variables$Query$GetRecommendedAnime(
+          categories:
+              ref.watch(sharedPreferencesProvider).getStringList('categories'),
+        ),
+      ),
+    );
+    var recommendedMangaHook = useQuery$GetRecommendedManga(
+      Options$Query$GetRecommendedManga(
+        variables: Variables$Query$GetRecommendedManga(
+          categories:
+              ref.watch(sharedPreferencesProvider).getStringList('categories'),
+        ),
+      ),
+    );
+    var trendingAnimeHook = useQuery$GetTrendingAnime();
+    var trendingMangaHook = useQuery$GetTrendingManga();
 
-    return Column(
-      children: [
-        const SizedBox(
-          height: 10,
-        ),
-        // Search Option
-        _buildSearchOption(context),
-        const SizedBox(
-          height: 15,
-        ),
-        _buildUpcomingEpisodesSection(context, upcomingEpisodesHook),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 10,
+          ),
+          // Search Option
+          _buildSearchOption(context),
+          const SizedBox(
+            height: 15,
+          ),
+          _buildUpcomingEpisodesSection(context, upcomingEpisodesHook),
+          const SizedBox(
+            height: 15,
+          ),
+          // Reviews feature card
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15,
+            ),
+            child: FeatureCard(
+              onTap: () {
+                showSnackBar(context, 'Coming soon..');
+              },
+              heading: HomeConstants.reviewsHeading,
+              subheading: HomeConstants.reviewsSubheading,
+              icon: AssetsConstants.chatBubble,
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          // Calendar feature card
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15,
+            ),
+            child: FeatureCard(
+              onTap: () {
+                showSnackBar(context, 'Coming soon..');
+              },
+              heading: HomeConstants.calendarHeading,
+              subheading: HomeConstants.calendarSubheading,
+              icon: AssetsConstants.calendar,
+            ),
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          // Recommended Anime Section
+          MediaSection(
+            hook: recommendedAnimeHook,
+            sectionHeader: 'Recommended Anime',
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          // Trending Anime Section
+          MediaSection(
+            hook: trendingAnimeHook,
+            sectionHeader: 'Trending Anime',
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          // Recommended Manga Section
+          MediaSection(
+            hook: recommendedMangaHook,
+            sectionHeader: 'Recommended Manga',
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          // Trending Manga Section
+          MediaSection(
+            hook: trendingMangaHook,
+            sectionHeader: 'Trending Manga',
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildUpcomingEpisodesSection(BuildContext context, QueryHookResult<Query$GetUpcomingEpisodes> hook) {
+  Widget _buildUpcomingEpisodesSection(
+      BuildContext context, QueryHookResult<Query$GetUpcomingEpisodes> hook) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -41,7 +138,8 @@ class HomeScreen extends HookConsumerWidget {
           child: Text(
             'Upcoming Episodes',
             style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                  fontFamily: 'Roboto Condensed',
+                  fontFamily: 'Roboto-Condensed',
+                  fontWeight: FontWeight.w500,
                 ),
           ),
         ),
@@ -65,7 +163,8 @@ class HomeScreen extends HookConsumerWidget {
     );
   }
 
-  Widget _buildUpcomingEpisodesList(List<Query$GetUpcomingEpisodes$Page$media?>? mediaList) {
+  Widget _buildUpcomingEpisodesList(
+      List<Query$GetUpcomingEpisodes$Page$media?>? mediaList) {
     final List<Color> cardColors = [
       AppColors.sunsetOrange,
       AppColors.crayola,
@@ -74,6 +173,7 @@ class HomeScreen extends HookConsumerWidget {
 
     return ListView.builder(
       itemCount: 10,
+      clipBehavior: Clip.none,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index) {
         return UpcomingEpisodeCard(

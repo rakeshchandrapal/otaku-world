@@ -19,7 +19,6 @@ class UpcomingEpisodeCard extends StatelessWidget {
         : Container(
             width: 215,
             margin: const EdgeInsets.only(right: 15),
-            // height: 150,
             padding: const EdgeInsets.only(
               left: 8,
               bottom: 8,
@@ -33,6 +32,13 @@ class UpcomingEpisodeCard extends StatelessWidget {
                 end: Alignment.bottomCenter,
                 colors: [color, AppColors.japaneseIndigo],
               ),
+              shadows: [
+                BoxShadow(
+                  color: AppColors.black.withOpacity(0.25),
+                  blurRadius: 4,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
             child: Row(
               children: [
@@ -83,6 +89,7 @@ class UpcomingEpisodeCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(15),
                               child: Image(
                                 image: imageProvider,
+                                fit: BoxFit.cover,
                               ),
                             );
                           },

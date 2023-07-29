@@ -108,7 +108,7 @@ flutter:
       fonts:
         - asset: assets/fonts/Poppins-SemiBold.ttf
 
-    - family: Roboto Condensed
+    - family: Roboto-Condensed
       fonts:
         - asset: assets/fonts/RobotoCondensed-Regular.ttf
 
