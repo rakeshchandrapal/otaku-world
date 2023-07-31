@@ -42,88 +42,97 @@ class HomeScreen extends HookConsumerWidget {
     var trendingAnimeHook = useQuery$GetTrendingAnime();
     var trendingMangaHook = useQuery$GetTrendingManga();
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          // Search Option
-          _buildSearchOption(context),
-          const SizedBox(
-            height: 15,
-          ),
-          _buildUpcomingEpisodesSection(context, upcomingEpisodesHook),
-          const SizedBox(
-            height: 15,
-          ),
-          // Reviews feature card
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
+    return RefreshIndicator(
+      onRefresh: () async {
+        upcomingEpisodesHook.refetch();
+        recommendedAnimeHook.refetch();
+        recommendedMangaHook.refetch();
+        trendingAnimeHook.refetch();
+        trendingMangaHook.refetch();
+      },
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 10,
             ),
-            child: FeatureCard(
-              onTap: () {
-                showSnackBar(context, 'Coming soon..');
-              },
-              heading: HomeConstants.reviewsHeading,
-              subheading: HomeConstants.reviewsSubheading,
-              icon: AssetsConstants.chatBubble,
+            // Search Option
+            _buildSearchOption(context),
+            const SizedBox(
+              height: 15,
             ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          // Calendar feature card
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
+            _buildUpcomingEpisodesSection(context, upcomingEpisodesHook),
+            const SizedBox(
+              height: 15,
             ),
-            child: FeatureCard(
-              onTap: () {
-                showSnackBar(context, 'Coming soon..');
-              },
-              heading: HomeConstants.calendarHeading,
-              subheading: HomeConstants.calendarSubheading,
-              icon: AssetsConstants.calendar,
+            // Reviews feature card
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+              ),
+              child: FeatureCard(
+                onTap: () {
+                  showSnackBar(context, 'Coming soon..');
+                },
+                heading: HomeConstants.reviewsHeading,
+                subheading: HomeConstants.reviewsSubheading,
+                icon: AssetsConstants.chatBubble,
+              ),
             ),
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          // Recommended Anime Section
-          MediaSection(
-            hook: recommendedAnimeHook,
-            sectionHeader: 'Recommended Anime',
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          // Trending Anime Section
-          MediaSection(
-            hook: trendingAnimeHook,
-            sectionHeader: 'Trending Anime',
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          // Recommended Manga Section
-          MediaSection(
-            hook: recommendedMangaHook,
-            sectionHeader: 'Recommended Manga',
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-          // Trending Manga Section
-          MediaSection(
-            hook: trendingMangaHook,
-            sectionHeader: 'Trending Manga',
-          ),
-          const SizedBox(
-            height: 15,
-          ),
-        ],
+            const SizedBox(
+              height: 15,
+            ),
+            // Calendar feature card
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+              ),
+              child: FeatureCard(
+                onTap: () {
+                  showSnackBar(context, 'Coming soon..');
+                },
+                heading: HomeConstants.calendarHeading,
+                subheading: HomeConstants.calendarSubheading,
+                icon: AssetsConstants.calendar,
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            // Recommended Anime Section
+            MediaSection(
+              hook: recommendedAnimeHook,
+              sectionHeader: 'Recommended Anime',
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            // Trending Anime Section
+            MediaSection(
+              hook: trendingAnimeHook,
+              sectionHeader: 'Trending Anime',
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            // Recommended Manga Section
+            MediaSection(
+              hook: recommendedMangaHook,
+              sectionHeader: 'Recommended Manga',
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            // Trending Manga Section
+            MediaSection(
+              hook: trendingMangaHook,
+              sectionHeader: 'Trending Manga',
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+          ],
+        ),
       ),
     );
   }

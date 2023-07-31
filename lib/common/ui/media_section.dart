@@ -9,6 +9,7 @@ import 'package:otaku_world/graphql/__generated/features/home/graphql/recommende
 import 'package:otaku_world/graphql/__generated/features/home/graphql/trending_anime.graphql.dart';
 import 'package:otaku_world/graphql/__generated/features/home/graphql/trending_manga.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
+import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
@@ -94,8 +95,11 @@ class MediaSection<T> extends StatelessWidget {
                     ? const SizedBox()
                     : MediaListBuilder(
                         mediaList: trendingAnimeList
-                            .map((anime) => MediaSectionItemWrapper(
-                                trendingAnimeMedia: anime))
+                            .map(
+                              (anime) => MediaSectionItemWrapper(
+                                trendingAnimeMedia: anime,
+                              ),
+                            )
                             .toList(),
                         type: Enum$MediaType.ANIME,
                       );
@@ -106,8 +110,11 @@ class MediaSection<T> extends StatelessWidget {
                     ? const SizedBox()
                     : MediaListBuilder(
                         mediaList: recommendedMangaList
-                            .map((manga) => MediaSectionItemWrapper(
-                                recommendedMangaMedia: manga))
+                            .map(
+                              (manga) => MediaSectionItemWrapper(
+                                recommendedMangaMedia: manga,
+                              ),
+                            )
                             .toList(),
                         type: Enum$MediaType.MANGA,
                       );
@@ -233,6 +240,7 @@ class MediaListBuilder<M extends MediaSectionItemWrapper>
 
   Widget _buildMediaPoster(String imageUrl) {
     return CachedNetworkImage(
+      cacheManager: ImageCacheManager.instance,
       imageUrl: imageUrl,
       width: 115,
       height: 169,
@@ -256,8 +264,9 @@ class MediaListBuilder<M extends MediaSectionItemWrapper>
 
   Widget _buildPlaceholderImage115x169() {
     return ClipRRect(
-      borderRadius:
-          (type == Enum$MediaType.ANIME) ? BorderRadius.circular(15) : BorderRadius.circular(0),
+      borderRadius: (type == Enum$MediaType.ANIME)
+          ? BorderRadius.circular(15)
+          : BorderRadius.circular(0),
       child: Image.asset(AssetsConstants.placeHolderImage115x169),
     );
   }
@@ -309,6 +318,8 @@ class MediaSectionItemWrapper implements MediaSectionItem {
       '';
 
   String? _getTitle(dynamic media) {
-    return media?.title?.english ?? media?.title?.romaji ?? media?.title!.native;
+    return media?.title?.english ??
+        media?.title?.romaji ??
+        media?.title!.native;
   }
 }
