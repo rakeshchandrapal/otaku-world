@@ -1,16 +1,7 @@
 query GetTrendingManga {
     Page(perPage: 10) {
         media(sort: [TRENDING_DESC], type: MANGA) {
-            id
-            title {
-                english
-                romaji
-                native
-            }
-            coverImage {
-                large
-            }
-            meanScore
+            ...MediaShort
         }
     }
 }

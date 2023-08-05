@@ -8,21 +8,27 @@ import 'package:otaku_world/graphql/__generated/features/home/graphql/recommende
 import 'package:otaku_world/graphql/__generated/features/home/graphql/recommended_manga.graphql.dart';
 import 'package:otaku_world/graphql/__generated/features/home/graphql/trending_anime.graphql.dart';
 import 'package:otaku_world/graphql/__generated/features/home/graphql/trending_manga.graphql.dart';
-import 'package:otaku_world/graphql/__generated/graphql/schema.graphql.dart';
+import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
+import 'package:otaku_world/graphql/__generated/schema.graphql.dart';
 import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/ui_utils.dart';
 
 class MediaSection<T> extends StatelessWidget {
-  const MediaSection(
-      {super.key,
-      required this.hook,
-      required this.sectionHeader,
-      this.leftPadding = 15});
+  const MediaSection({
+    super.key,
+    required this.hook,
+    required this.sectionHeader,
+    this.leftPadding = 15,
+    required this.onSliderPressed,
+    required this.onMorePressed,
+  });
 
   final QueryHookResult<T> hook;
   final String sectionHeader;
   final double leftPadding;
+  final VoidCallback onSliderPressed;
+  final VoidCallback onMorePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +56,7 @@ class MediaSection<T> extends StatelessWidget {
                 Row(
                   children: [
                     InkWell(
-                      onTap: () {
-                        showSnackBar(context, 'Coming soon..');
-                      },
+                      onTap: onSliderPressed,
                       child: SvgPicture.asset(AssetsConstants.viewSlider),
                     ),
                     const SizedBox(
@@ -60,7 +64,7 @@ class MediaSection<T> extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        showSnackBar(context, 'Coming soon..');
+                        showSnackBar(context, 'Coming soon...');
                       },
                       child: SvgPicture.asset(AssetsConstants.arrowRight),
                     ),
@@ -82,10 +86,7 @@ class MediaSection<T> extends StatelessWidget {
                 return (recommendedAnimeList == null)
                     ? const SizedBox()
                     : MediaListBuilder(
-                        mediaList: recommendedAnimeList
-                            .map((anime) => MediaSectionItemWrapper(
-                                recommendedAnimeMedia: anime))
-                            .toList(),
+                        mediaList: recommendedAnimeList,
                         type: Enum$MediaType.ANIME,
                       );
               } else if (result is Query$GetTrendingAnime) {
@@ -94,13 +95,7 @@ class MediaSection<T> extends StatelessWidget {
                 return (trendingAnimeList == null)
                     ? const SizedBox()
                     : MediaListBuilder(
-                        mediaList: trendingAnimeList
-                            .map(
-                              (anime) => MediaSectionItemWrapper(
-                                trendingAnimeMedia: anime,
-                              ),
-                            )
-                            .toList(),
+                        mediaList: trendingAnimeList,
                         type: Enum$MediaType.ANIME,
                       );
               } else if (result is Query$GetRecommendedManga) {
@@ -109,13 +104,7 @@ class MediaSection<T> extends StatelessWidget {
                 return (recommendedMangaList == null)
                     ? const SizedBox()
                     : MediaListBuilder(
-                        mediaList: recommendedMangaList
-                            .map(
-                              (manga) => MediaSectionItemWrapper(
-                                recommendedMangaMedia: manga,
-                              ),
-                            )
-                            .toList(),
+                        mediaList: recommendedMangaList,
                         type: Enum$MediaType.MANGA,
                       );
               } else if (result is Query$GetTrendingManga) {
@@ -124,10 +113,7 @@ class MediaSection<T> extends StatelessWidget {
                 return (trendingMangaList == null)
                     ? const SizedBox()
                     : MediaListBuilder(
-                        mediaList: trendingMangaList
-                            .map((manga) => MediaSectionItemWrapper(
-                                trendingMangaMedia: manga))
-                            .toList(),
+                        mediaList: trendingMangaList,
                         type: Enum$MediaType.MANGA,
                       );
               } else {
@@ -144,12 +130,14 @@ class MediaSection<T> extends StatelessWidget {
   }
 }
 
-class MediaListBuilder<M extends MediaSectionItemWrapper>
-    extends StatelessWidget {
-  const MediaListBuilder(
-      {super.key, required this.mediaList, required this.type});
+class MediaListBuilder extends StatelessWidget {
+  const MediaListBuilder({
+    super.key,
+    required this.mediaList,
+    required this.type,
+  });
 
-  final List<M> mediaList;
+  final List<Fragment$MediaShort?> mediaList;
   final Enum$MediaType type;
 
   @override
@@ -171,7 +159,7 @@ class MediaListBuilder<M extends MediaSectionItemWrapper>
                 Stack(
                   children: [
                     _buildMediaPoster(
-                      mediaList[index].imageUrl,
+                      mediaList[index]?.coverImage?.large,
                     ),
                     // Mean score
                     Positioned(
@@ -179,7 +167,7 @@ class MediaListBuilder<M extends MediaSectionItemWrapper>
                       right: 0,
                       child: _buildMeanScore(
                         context,
-                        mediaList[index].meanScore,
+                        mediaList[index]?.meanScore,
                       ),
                     ),
                   ],
@@ -191,7 +179,7 @@ class MediaListBuilder<M extends MediaSectionItemWrapper>
                 SizedBox(
                   width: 115,
                   child: Text(
-                    mediaList[index].title,
+                    getTitle(mediaList[index]?.title) ?? '',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
@@ -207,7 +195,11 @@ class MediaListBuilder<M extends MediaSectionItemWrapper>
     );
   }
 
-  Widget _buildMeanScore(BuildContext context, int meanScore) {
+  String? getTitle(Fragment$MediaShort$title? title) {
+    return title?.english ?? title?.romaji ?? title?.native;
+  }
+
+  Widget _buildMeanScore(BuildContext context, int? meanScore) {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: 4,
@@ -228,7 +220,7 @@ class MediaListBuilder<M extends MediaSectionItemWrapper>
             width: 1,
           ),
           Text(
-            meanScore.toString(),
+            (meanScore == null) ? '0' : meanScore.toString(),
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontFamily: 'Roboto-Condensed',
                 ),
@@ -238,28 +230,30 @@ class MediaListBuilder<M extends MediaSectionItemWrapper>
     );
   }
 
-  Widget _buildMediaPoster(String imageUrl) {
-    return CachedNetworkImage(
-      cacheManager: ImageCacheManager.instance,
-      imageUrl: imageUrl,
-      width: 115,
-      height: 169,
-      fit: BoxFit.cover,
-      imageBuilder: (context, imageProvider) {
-        return ClipRRect(
-          borderRadius: (type == Enum$MediaType.ANIME)
-              ? BorderRadius.circular(15)
-              : BorderRadius.circular(0),
-          child: Image(
-            image: imageProvider,
+  Widget _buildMediaPoster(String? imageUrl) {
+    return (imageUrl != null)
+        ? CachedNetworkImage(
+            cacheManager: ImageCacheManager.instance,
+            imageUrl: imageUrl,
+            width: 115,
+            height: 169,
             fit: BoxFit.cover,
-          ),
-        );
-      },
-      placeholder: (context, url) {
-        return _buildPlaceholderImage115x169();
-      },
-    );
+            imageBuilder: (context, imageProvider) {
+              return ClipRRect(
+                borderRadius: (type == Enum$MediaType.ANIME)
+                    ? BorderRadius.circular(15)
+                    : BorderRadius.circular(0),
+                child: Image(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
+            placeholder: (context, url) {
+              return _buildPlaceholderImage115x169();
+            },
+          )
+        : _buildPlaceholderImage115x169();
   }
 
   Widget _buildPlaceholderImage115x169() {
@@ -278,48 +272,4 @@ abstract class MediaSectionItem {
   String get title;
 
   int get meanScore;
-}
-
-class MediaSectionItemWrapper implements MediaSectionItem {
-  const MediaSectionItemWrapper({
-    this.recommendedAnimeMedia,
-    this.trendingAnimeMedia,
-    this.recommendedMangaMedia,
-    this.trendingMangaMedia,
-  });
-
-  final Query$GetRecommendedAnime$Page$media? recommendedAnimeMedia;
-  final Query$GetTrendingAnime$Page$media? trendingAnimeMedia;
-  final Query$GetRecommendedManga$Page$media? recommendedMangaMedia;
-  final Query$GetTrendingManga$Page$media? trendingMangaMedia;
-
-  @override
-  String get imageUrl =>
-      recommendedAnimeMedia?.coverImage?.large ??
-      trendingAnimeMedia?.coverImage?.large ??
-      recommendedMangaMedia?.coverImage?.large ??
-      trendingMangaMedia?.coverImage?.large ??
-      '';
-
-  @override
-  int get meanScore =>
-      recommendedAnimeMedia?.meanScore ??
-      trendingAnimeMedia?.meanScore ??
-      recommendedMangaMedia?.meanScore ??
-      trendingMangaMedia?.meanScore ??
-      0;
-
-  @override
-  String get title =>
-      _getTitle(recommendedAnimeMedia) ??
-      _getTitle(recommendedMangaMedia) ??
-      _getTitle(trendingAnimeMedia) ??
-      _getTitle(trendingMangaMedia) ??
-      '';
-
-  String? _getTitle(dynamic media) {
-    return media?.title?.english ??
-        media?.title?.romaji ??
-        media?.title!.native;
-  }
 }

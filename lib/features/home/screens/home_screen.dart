@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otaku_world/common/ui/graphql.dart';
@@ -103,6 +104,14 @@ class HomeScreen extends HookConsumerWidget {
             MediaSection(
               hook: recommendedAnimeHook,
               sectionHeader: 'Recommended Anime',
+              onMorePressed: () {},
+              onSliderPressed: () {
+                recommendedAnimeHook.refetch();
+                context.push(
+                  '/mediaSlider/Recommended Anime',
+                  extra: recommendedAnimeHook.result.parsedData?.Page?.media,
+                );
+              },
             ),
             const SizedBox(
               height: 15,
@@ -111,6 +120,14 @@ class HomeScreen extends HookConsumerWidget {
             MediaSection(
               hook: trendingAnimeHook,
               sectionHeader: 'Trending Anime',
+              onMorePressed: () {},
+              onSliderPressed: () {
+                trendingAnimeHook.refetch();
+                context.push(
+                  '/mediaSlider/Trending Anime',
+                  extra: trendingAnimeHook.result.parsedData?.Page?.media,
+                );
+              },
             ),
             const SizedBox(
               height: 15,
@@ -119,6 +136,14 @@ class HomeScreen extends HookConsumerWidget {
             MediaSection(
               hook: recommendedMangaHook,
               sectionHeader: 'Recommended Manga',
+              onMorePressed: () {},
+              onSliderPressed: () {
+                recommendedMangaHook.refetch();
+                context.push(
+                  '/mediaSlider/Recommended Manga',
+                  extra: recommendedMangaHook.result.parsedData?.Page?.media,
+                );
+              },
             ),
             const SizedBox(
               height: 15,
@@ -127,6 +152,14 @@ class HomeScreen extends HookConsumerWidget {
             MediaSection(
               hook: trendingMangaHook,
               sectionHeader: 'Trending Manga',
+              onMorePressed: () {},
+              onSliderPressed: () {
+                trendingMangaHook.refetch();
+                context.push(
+                  '/mediaSlider/Trending Manga',
+                  extra: trendingMangaHook.result.parsedData?.Page?.media,
+                );
+              },
             ),
             const SizedBox(
               height: 15,

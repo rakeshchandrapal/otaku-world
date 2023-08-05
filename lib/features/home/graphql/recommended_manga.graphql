@@ -1,16 +1,7 @@
 query GetRecommendedManga($categories: [String]) {
     Page(perPage:10) {
         media(genre_in:$categories, sort: [POPULARITY_DESC], type: MANGA) {
-            id
-            title {
-                english
-                romaji
-                native
-            }
-            coverImage {
-                large
-            }
-            meanScore
+            ...MediaShort
         }
     }
 }

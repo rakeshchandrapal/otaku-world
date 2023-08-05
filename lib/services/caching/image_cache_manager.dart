@@ -5,8 +5,8 @@ class ImageCacheManager {
   static CacheManager instance = CacheManager(
     Config(
       key,
-      stalePeriod: const Duration(days: 3),
-      maxNrOfCacheObjects: 150,
+      stalePeriod: const Duration(days: 1),
+      maxNrOfCacheObjects: 50,
     ),
   );
 }

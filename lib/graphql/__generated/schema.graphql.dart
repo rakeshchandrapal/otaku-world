@@ -1,6 +1,7 @@
 // GENERATED FILE
 // DO NOT MODIFY
 // ignore_for_file: type=lint
+
 class Input$AiringScheduleInput {
   factory Input$AiringScheduleInput({
     int? airingAt,

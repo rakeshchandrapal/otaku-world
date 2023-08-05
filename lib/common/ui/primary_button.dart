@@ -5,15 +5,23 @@ class PrimaryButton extends StatelessWidget {
   const PrimaryButton({
     super.key,
     this.horizontalPadding = 12,
+    this.verticalPadding = 14,
     this.width,
     required this.onTap,
     required this.label,
+    this.color = AppColors.sunsetOrange,
+    this.fontSize,
+    this.radius,
   });
 
   final double horizontalPadding;
   final double? width;
   final VoidCallback onTap;
   final String label;
+  final Color color;
+  final double? fontSize;
+  final double? radius;
+  final double verticalPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +35,8 @@ class PrimaryButton extends StatelessWidget {
           width: width ??
               MediaQuery.of(context).size.width - horizontalPadding * 2,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(radius ?? 20),
+            color: color,
             boxShadow: [
               BoxShadow(
                 color: AppColors.black.withOpacity(0.25),
@@ -39,12 +47,13 @@ class PrimaryButton extends StatelessWidget {
           ),
           child: Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 14,
+              padding: EdgeInsets.symmetric(
+                vertical: verticalPadding,
               ),
               child: Text(
                 label,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  fontSize: fontSize,
                       color: AppColors.white,
                       fontFamily: 'Poppins',
                     ),

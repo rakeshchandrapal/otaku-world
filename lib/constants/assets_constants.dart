@@ -24,6 +24,8 @@ class AssetsConstants {
   static const String doubleArrowRight = '$_iconsPath/double-arrow-right.svg';
   static const String viewSlider = '$_iconsPath/view-slider.svg';
   static const String star = '$_iconsPath/star.svg';
+  static const String favourite = '$_iconsPath/favourite.svg';
+  static const String lineVertical = '$_iconsPath/line_vertical.svg';
 
   // Bottom Navigation Icons
   static const String home = '$_iconsPath/home.svg';
@@ -34,4 +36,5 @@ class AssetsConstants {
   // Image placeholders
   static const String placeHolderImage85x120 = '$_placeholderImagesPath/85x120.png';
   static const String placeHolderImage115x169 = '$_placeholderImagesPath/115x169.png';
+  static const String placeHolderImage210x310 = '$_placeholderImagesPath/210x310.png';
 }

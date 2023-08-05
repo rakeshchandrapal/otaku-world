@@ -47,6 +47,7 @@ dependencies:
   riverpod_annotation:
   cached_network_image: ^3.2.3
   flutter_cache_manager: ^3.3.1
+  carousel_slider:
 
 dev_dependencies:
   flutter_test:

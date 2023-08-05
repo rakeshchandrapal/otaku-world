@@ -18,6 +18,7 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColors.raisinBlack,
       elevation: 0,
       actions: actions,
+      centerTitle: false,
     );
   }
 
