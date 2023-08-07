@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:otaku_world/common/ui/app_scaffold.dart';
+import 'package:otaku_world/features/anime_lists/screens/recommended_anime_screen.dart';
+import 'package:otaku_world/features/anime_lists/screens/trending_anime_screen.dart';
 import 'package:otaku_world/features/discover/screens/discover_screen.dart';
 import 'package:otaku_world/features/home/screens/home_screen.dart';
+import 'package:otaku_world/features/manga_lists/screens/recommended_manga_screen.dart';
+import 'package:otaku_world/features/manga_lists/screens/trending_manga_screen.dart';
 import 'package:otaku_world/features/media_slider/media_slider_screen.dart';
 import 'package:otaku_world/features/my_list/screens/my_list_screen.dart';
 import 'package:otaku_world/features/onboarding/screens/onboarding_screen.dart';
@@ -48,6 +52,26 @@ final router = GoRouter(
           mediaList: mediaList,
         );
       },
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/recommendedAnime',
+      builder: (context, state) => const RecommendedAnimeScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/recommendedManga',
+      builder: (context, state) => const RecommendedMangaScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/trendingAnime',
+      builder: (context, state) => const TrendingAnimeScreen(),
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/trendingManga',
+      builder: (context, state) => const TrendingMangaScreen(),
     ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,

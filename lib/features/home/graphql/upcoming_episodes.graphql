@@ -1,5 +1,5 @@
-query GetUpcomingEpisodes {
-    Page(perPage: 10) {
+query GetUpcomingEpisodes($page: Int) {
+    Page(perPage: 10, page: $page) {
         media(status: RELEASING, sort: [POPULARITY_DESC], type: ANIME) {
             id
             title {

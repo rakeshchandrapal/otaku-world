@@ -27,6 +27,7 @@ class HomeScreen extends HookConsumerWidget {
     var recommendedAnimeHook = useQuery$GetRecommendedAnime(
       Options$Query$GetRecommendedAnime(
         variables: Variables$Query$GetRecommendedAnime(
+          page: 1,
           categories:
               ref.watch(sharedPreferencesProvider).getStringList('categories'),
         ),
@@ -35,13 +36,26 @@ class HomeScreen extends HookConsumerWidget {
     var recommendedMangaHook = useQuery$GetRecommendedManga(
       Options$Query$GetRecommendedManga(
         variables: Variables$Query$GetRecommendedManga(
+          page: 1,
           categories:
               ref.watch(sharedPreferencesProvider).getStringList('categories'),
         ),
       ),
     );
-    var trendingAnimeHook = useQuery$GetTrendingAnime();
-    var trendingMangaHook = useQuery$GetTrendingManga();
+    var trendingAnimeHook = useQuery$GetTrendingAnime(
+      Options$Query$GetTrendingAnime(
+        variables: Variables$Query$GetTrendingAnime(
+          page: 1,
+        ),
+      ),
+    );
+    var trendingMangaHook = useQuery$GetTrendingManga(
+      Options$Query$GetTrendingManga(
+        variables: Variables$Query$GetTrendingManga(
+          page: 1,
+        ),
+      ),
+    );
 
     return RefreshIndicator(
       onRefresh: () async {
@@ -104,7 +118,9 @@ class HomeScreen extends HookConsumerWidget {
             MediaSection(
               hook: recommendedAnimeHook,
               sectionHeader: 'Recommended Anime',
-              onMorePressed: () {},
+              onMorePressed: () {
+                context.push('/recommendedAnime');
+              },
               onSliderPressed: () {
                 recommendedAnimeHook.refetch();
                 context.push(
@@ -120,7 +136,9 @@ class HomeScreen extends HookConsumerWidget {
             MediaSection(
               hook: trendingAnimeHook,
               sectionHeader: 'Trending Anime',
-              onMorePressed: () {},
+              onMorePressed: () {
+                context.push('/trendingAnime');
+              },
               onSliderPressed: () {
                 trendingAnimeHook.refetch();
                 context.push(
@@ -136,7 +154,9 @@ class HomeScreen extends HookConsumerWidget {
             MediaSection(
               hook: recommendedMangaHook,
               sectionHeader: 'Recommended Manga',
-              onMorePressed: () {},
+              onMorePressed: () {
+                context.push('/recommendedManga');
+              },
               onSliderPressed: () {
                 recommendedMangaHook.refetch();
                 context.push(
@@ -152,7 +172,9 @@ class HomeScreen extends HookConsumerWidget {
             MediaSection(
               hook: trendingMangaHook,
               sectionHeader: 'Trending Manga',
-              onMorePressed: () {},
+              onMorePressed: () {
+                context.push('/trendingManga');
+              },
               onSliderPressed: () {
                 trendingMangaHook.refetch();
                 context.push(

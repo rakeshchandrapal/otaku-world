@@ -1,5 +1,10 @@
-query GetRecommendedManga($categories: [String]) {
-    Page(perPage:10) {
+query GetRecommendedManga($page: Int, $categories: [String]) {
+    Page(perPage: 30, page: $page) {
+        pageInfo {
+            currentPage
+            hasNextPage
+            lastPage
+        }
         media(genre_in:$categories, sort: [POPULARITY_DESC], type: MANGA) {
             ...MediaShort
         }

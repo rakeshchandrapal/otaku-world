@@ -8,19 +8,19 @@ import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
-class Variables$Query$GetRecommendedAnime {
-  factory Variables$Query$GetRecommendedAnime({
+class Variables$Query$GetRecommendedManga {
+  factory Variables$Query$GetRecommendedManga({
     int? page,
     List<String?>? categories,
   }) =>
-      Variables$Query$GetRecommendedAnime._({
+      Variables$Query$GetRecommendedManga._({
         if (page != null) r'page': page,
         if (categories != null) r'categories': categories,
       });
 
-  Variables$Query$GetRecommendedAnime._(this._$data);
+  Variables$Query$GetRecommendedManga._(this._$data);
 
-  factory Variables$Query$GetRecommendedAnime.fromJson(
+  factory Variables$Query$GetRecommendedManga.fromJson(
       Map<String, dynamic> data) {
     final result$data = <String, dynamic>{};
     if (data.containsKey('page')) {
@@ -32,7 +32,7 @@ class Variables$Query$GetRecommendedAnime {
       result$data['categories'] =
           (l$categories as List<dynamic>?)?.map((e) => (e as String?)).toList();
     }
-    return Variables$Query$GetRecommendedAnime._(result$data);
+    return Variables$Query$GetRecommendedManga._(result$data);
   }
 
   Map<String, dynamic> _$data;
@@ -52,9 +52,9 @@ class Variables$Query$GetRecommendedAnime {
     return result$data;
   }
 
-  CopyWith$Variables$Query$GetRecommendedAnime<
-          Variables$Query$GetRecommendedAnime>
-      get copyWith => CopyWith$Variables$Query$GetRecommendedAnime(
+  CopyWith$Variables$Query$GetRecommendedManga<
+          Variables$Query$GetRecommendedManga>
+      get copyWith => CopyWith$Variables$Query$GetRecommendedManga(
             this,
             (i) => i,
           );
@@ -63,7 +63,7 @@ class Variables$Query$GetRecommendedAnime {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Variables$Query$GetRecommendedAnime) ||
+    if (!(other is Variables$Query$GetRecommendedManga) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -113,14 +113,14 @@ class Variables$Query$GetRecommendedAnime {
   }
 }
 
-abstract class CopyWith$Variables$Query$GetRecommendedAnime<TRes> {
-  factory CopyWith$Variables$Query$GetRecommendedAnime(
-    Variables$Query$GetRecommendedAnime instance,
-    TRes Function(Variables$Query$GetRecommendedAnime) then,
-  ) = _CopyWithImpl$Variables$Query$GetRecommendedAnime;
+abstract class CopyWith$Variables$Query$GetRecommendedManga<TRes> {
+  factory CopyWith$Variables$Query$GetRecommendedManga(
+    Variables$Query$GetRecommendedManga instance,
+    TRes Function(Variables$Query$GetRecommendedManga) then,
+  ) = _CopyWithImpl$Variables$Query$GetRecommendedManga;
 
-  factory CopyWith$Variables$Query$GetRecommendedAnime.stub(TRes res) =
-      _CopyWithStubImpl$Variables$Query$GetRecommendedAnime;
+  factory CopyWith$Variables$Query$GetRecommendedManga.stub(TRes res) =
+      _CopyWithStubImpl$Variables$Query$GetRecommendedManga;
 
   TRes call({
     int? page,
@@ -128,16 +128,16 @@ abstract class CopyWith$Variables$Query$GetRecommendedAnime<TRes> {
   });
 }
 
-class _CopyWithImpl$Variables$Query$GetRecommendedAnime<TRes>
-    implements CopyWith$Variables$Query$GetRecommendedAnime<TRes> {
-  _CopyWithImpl$Variables$Query$GetRecommendedAnime(
+class _CopyWithImpl$Variables$Query$GetRecommendedManga<TRes>
+    implements CopyWith$Variables$Query$GetRecommendedManga<TRes> {
+  _CopyWithImpl$Variables$Query$GetRecommendedManga(
     this._instance,
     this._then,
   );
 
-  final Variables$Query$GetRecommendedAnime _instance;
+  final Variables$Query$GetRecommendedManga _instance;
 
-  final TRes Function(Variables$Query$GetRecommendedAnime) _then;
+  final TRes Function(Variables$Query$GetRecommendedManga) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -145,7 +145,7 @@ class _CopyWithImpl$Variables$Query$GetRecommendedAnime<TRes>
     Object? page = _undefined,
     Object? categories = _undefined,
   }) =>
-      _then(Variables$Query$GetRecommendedAnime._({
+      _then(Variables$Query$GetRecommendedManga._({
         ..._instance._$data,
         if (page != _undefined) 'page': (page as int?),
         if (categories != _undefined)
@@ -153,9 +153,9 @@ class _CopyWithImpl$Variables$Query$GetRecommendedAnime<TRes>
       }));
 }
 
-class _CopyWithStubImpl$Variables$Query$GetRecommendedAnime<TRes>
-    implements CopyWith$Variables$Query$GetRecommendedAnime<TRes> {
-  _CopyWithStubImpl$Variables$Query$GetRecommendedAnime(this._res);
+class _CopyWithStubImpl$Variables$Query$GetRecommendedManga<TRes>
+    implements CopyWith$Variables$Query$GetRecommendedManga<TRes> {
+  _CopyWithStubImpl$Variables$Query$GetRecommendedManga(this._res);
 
   TRes _res;
 
@@ -166,25 +166,25 @@ class _CopyWithStubImpl$Variables$Query$GetRecommendedAnime<TRes>
       _res;
 }
 
-class Query$GetRecommendedAnime {
-  Query$GetRecommendedAnime({
+class Query$GetRecommendedManga {
+  Query$GetRecommendedManga({
     this.Page,
     this.$__typename = 'Query',
   });
 
-  factory Query$GetRecommendedAnime.fromJson(Map<String, dynamic> json) {
+  factory Query$GetRecommendedManga.fromJson(Map<String, dynamic> json) {
     final l$Page = json['Page'];
     final l$$__typename = json['__typename'];
-    return Query$GetRecommendedAnime(
+    return Query$GetRecommendedManga(
       Page: l$Page == null
           ? null
-          : Query$GetRecommendedAnime$Page.fromJson(
+          : Query$GetRecommendedManga$Page.fromJson(
               (l$Page as Map<String, dynamic>)),
       $__typename: (l$$__typename as String),
     );
   }
 
-  final Query$GetRecommendedAnime$Page? Page;
+  final Query$GetRecommendedManga$Page? Page;
 
   final String $__typename;
 
@@ -212,7 +212,7 @@ class Query$GetRecommendedAnime {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Query$GetRecommendedAnime) ||
+    if (!(other is Query$GetRecommendedManga) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -230,41 +230,41 @@ class Query$GetRecommendedAnime {
   }
 }
 
-extension UtilityExtension$Query$GetRecommendedAnime
-    on Query$GetRecommendedAnime {
-  CopyWith$Query$GetRecommendedAnime<Query$GetRecommendedAnime> get copyWith =>
-      CopyWith$Query$GetRecommendedAnime(
+extension UtilityExtension$Query$GetRecommendedManga
+    on Query$GetRecommendedManga {
+  CopyWith$Query$GetRecommendedManga<Query$GetRecommendedManga> get copyWith =>
+      CopyWith$Query$GetRecommendedManga(
         this,
         (i) => i,
       );
 }
 
-abstract class CopyWith$Query$GetRecommendedAnime<TRes> {
-  factory CopyWith$Query$GetRecommendedAnime(
-    Query$GetRecommendedAnime instance,
-    TRes Function(Query$GetRecommendedAnime) then,
-  ) = _CopyWithImpl$Query$GetRecommendedAnime;
+abstract class CopyWith$Query$GetRecommendedManga<TRes> {
+  factory CopyWith$Query$GetRecommendedManga(
+    Query$GetRecommendedManga instance,
+    TRes Function(Query$GetRecommendedManga) then,
+  ) = _CopyWithImpl$Query$GetRecommendedManga;
 
-  factory CopyWith$Query$GetRecommendedAnime.stub(TRes res) =
-      _CopyWithStubImpl$Query$GetRecommendedAnime;
+  factory CopyWith$Query$GetRecommendedManga.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetRecommendedManga;
 
   TRes call({
-    Query$GetRecommendedAnime$Page? Page,
+    Query$GetRecommendedManga$Page? Page,
     String? $__typename,
   });
-  CopyWith$Query$GetRecommendedAnime$Page<TRes> get Page;
+  CopyWith$Query$GetRecommendedManga$Page<TRes> get Page;
 }
 
-class _CopyWithImpl$Query$GetRecommendedAnime<TRes>
-    implements CopyWith$Query$GetRecommendedAnime<TRes> {
-  _CopyWithImpl$Query$GetRecommendedAnime(
+class _CopyWithImpl$Query$GetRecommendedManga<TRes>
+    implements CopyWith$Query$GetRecommendedManga<TRes> {
+  _CopyWithImpl$Query$GetRecommendedManga(
     this._instance,
     this._then,
   );
 
-  final Query$GetRecommendedAnime _instance;
+  final Query$GetRecommendedManga _instance;
 
-  final TRes Function(Query$GetRecommendedAnime) _then;
+  final TRes Function(Query$GetRecommendedManga) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -272,42 +272,42 @@ class _CopyWithImpl$Query$GetRecommendedAnime<TRes>
     Object? Page = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$GetRecommendedAnime(
+      _then(Query$GetRecommendedManga(
         Page: Page == _undefined
             ? _instance.Page
-            : (Page as Query$GetRecommendedAnime$Page?),
+            : (Page as Query$GetRecommendedManga$Page?),
         $__typename: $__typename == _undefined || $__typename == null
             ? _instance.$__typename
             : ($__typename as String),
       ));
-  CopyWith$Query$GetRecommendedAnime$Page<TRes> get Page {
+  CopyWith$Query$GetRecommendedManga$Page<TRes> get Page {
     final local$Page = _instance.Page;
     return local$Page == null
-        ? CopyWith$Query$GetRecommendedAnime$Page.stub(_then(_instance))
-        : CopyWith$Query$GetRecommendedAnime$Page(
+        ? CopyWith$Query$GetRecommendedManga$Page.stub(_then(_instance))
+        : CopyWith$Query$GetRecommendedManga$Page(
             local$Page, (e) => call(Page: e));
   }
 }
 
-class _CopyWithStubImpl$Query$GetRecommendedAnime<TRes>
-    implements CopyWith$Query$GetRecommendedAnime<TRes> {
-  _CopyWithStubImpl$Query$GetRecommendedAnime(this._res);
+class _CopyWithStubImpl$Query$GetRecommendedManga<TRes>
+    implements CopyWith$Query$GetRecommendedManga<TRes> {
+  _CopyWithStubImpl$Query$GetRecommendedManga(this._res);
 
   TRes _res;
 
   call({
-    Query$GetRecommendedAnime$Page? Page,
+    Query$GetRecommendedManga$Page? Page,
     String? $__typename,
   }) =>
       _res;
-  CopyWith$Query$GetRecommendedAnime$Page<TRes> get Page =>
-      CopyWith$Query$GetRecommendedAnime$Page.stub(_res);
+  CopyWith$Query$GetRecommendedManga$Page<TRes> get Page =>
+      CopyWith$Query$GetRecommendedManga$Page.stub(_res);
 }
 
-const documentNodeQueryGetRecommendedAnime = DocumentNode(definitions: [
+const documentNodeQueryGetRecommendedManga = DocumentNode(definitions: [
   OperationDefinitionNode(
     type: OperationType.query,
-    name: NameNode(value: 'GetRecommendedAnime'),
+    name: NameNode(value: 'GetRecommendedManga'),
     variableDefinitions: [
       VariableDefinitionNode(
         variable: VariableNode(name: NameNode(value: 'page')),
@@ -400,7 +400,7 @@ const documentNodeQueryGetRecommendedAnime = DocumentNode(definitions: [
               ),
               ArgumentNode(
                 name: NameNode(value: 'type'),
-                value: EnumValueNode(name: NameNode(value: 'ANIME')),
+                value: EnumValueNode(name: NameNode(value: 'MANGA')),
               ),
             ],
             directives: [],
@@ -438,27 +438,27 @@ const documentNodeQueryGetRecommendedAnime = DocumentNode(definitions: [
   ),
   fragmentDefinitionMediaShort,
 ]);
-Query$GetRecommendedAnime _parserFn$Query$GetRecommendedAnime(
+Query$GetRecommendedManga _parserFn$Query$GetRecommendedManga(
         Map<String, dynamic> data) =>
-    Query$GetRecommendedAnime.fromJson(data);
-typedef OnQueryComplete$Query$GetRecommendedAnime = FutureOr<void> Function(
+    Query$GetRecommendedManga.fromJson(data);
+typedef OnQueryComplete$Query$GetRecommendedManga = FutureOr<void> Function(
   Map<String, dynamic>?,
-  Query$GetRecommendedAnime?,
+  Query$GetRecommendedManga?,
 );
 
-class Options$Query$GetRecommendedAnime
-    extends graphql.QueryOptions<Query$GetRecommendedAnime> {
-  Options$Query$GetRecommendedAnime({
+class Options$Query$GetRecommendedManga
+    extends graphql.QueryOptions<Query$GetRecommendedManga> {
+  Options$Query$GetRecommendedManga({
     String? operationName,
-    Variables$Query$GetRecommendedAnime? variables,
+    Variables$Query$GetRecommendedManga? variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Query$GetRecommendedAnime? typedOptimisticResult,
+    Query$GetRecommendedManga? typedOptimisticResult,
     Duration? pollInterval,
     graphql.Context? context,
-    OnQueryComplete$Query$GetRecommendedAnime? onComplete,
+    OnQueryComplete$Query$GetRecommendedManga? onComplete,
     graphql.OnQueryError? onError,
   })  : onCompleteWithParsed = onComplete,
         super(
@@ -476,14 +476,14 @@ class Options$Query$GetRecommendedAnime
                     data,
                     data == null
                         ? null
-                        : _parserFn$Query$GetRecommendedAnime(data),
+                        : _parserFn$Query$GetRecommendedManga(data),
                   ),
           onError: onError,
-          document: documentNodeQueryGetRecommendedAnime,
-          parserFn: _parserFn$Query$GetRecommendedAnime,
+          document: documentNodeQueryGetRecommendedManga,
+          parserFn: _parserFn$Query$GetRecommendedManga,
         );
 
-  final OnQueryComplete$Query$GetRecommendedAnime? onCompleteWithParsed;
+  final OnQueryComplete$Query$GetRecommendedManga? onCompleteWithParsed;
 
   @override
   List<Object?> get properties => [
@@ -494,16 +494,16 @@ class Options$Query$GetRecommendedAnime
       ];
 }
 
-class WatchOptions$Query$GetRecommendedAnime
-    extends graphql.WatchQueryOptions<Query$GetRecommendedAnime> {
-  WatchOptions$Query$GetRecommendedAnime({
+class WatchOptions$Query$GetRecommendedManga
+    extends graphql.WatchQueryOptions<Query$GetRecommendedManga> {
+  WatchOptions$Query$GetRecommendedManga({
     String? operationName,
-    Variables$Query$GetRecommendedAnime? variables,
+    Variables$Query$GetRecommendedManga? variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
     Object? optimisticResult,
-    Query$GetRecommendedAnime? typedOptimisticResult,
+    Query$GetRecommendedManga? typedOptimisticResult,
     graphql.Context? context,
     Duration? pollInterval,
     bool? eagerlyFetchResults,
@@ -517,105 +517,105 @@ class WatchOptions$Query$GetRecommendedAnime
           cacheRereadPolicy: cacheRereadPolicy,
           optimisticResult: optimisticResult ?? typedOptimisticResult?.toJson(),
           context: context,
-          document: documentNodeQueryGetRecommendedAnime,
+          document: documentNodeQueryGetRecommendedManga,
           pollInterval: pollInterval,
           eagerlyFetchResults: eagerlyFetchResults,
           carryForwardDataOnException: carryForwardDataOnException,
           fetchResults: fetchResults,
-          parserFn: _parserFn$Query$GetRecommendedAnime,
+          parserFn: _parserFn$Query$GetRecommendedManga,
         );
 }
 
-class FetchMoreOptions$Query$GetRecommendedAnime
+class FetchMoreOptions$Query$GetRecommendedManga
     extends graphql.FetchMoreOptions {
-  FetchMoreOptions$Query$GetRecommendedAnime({
+  FetchMoreOptions$Query$GetRecommendedManga({
     required graphql.UpdateQuery updateQuery,
-    Variables$Query$GetRecommendedAnime? variables,
+    Variables$Query$GetRecommendedManga? variables,
   }) : super(
           updateQuery: updateQuery,
           variables: variables?.toJson() ?? {},
-          document: documentNodeQueryGetRecommendedAnime,
+          document: documentNodeQueryGetRecommendedManga,
         );
 }
 
-extension ClientExtension$Query$GetRecommendedAnime on graphql.GraphQLClient {
-  Future<graphql.QueryResult<Query$GetRecommendedAnime>>
-      query$GetRecommendedAnime(
-              [Options$Query$GetRecommendedAnime? options]) async =>
-          await this.query(options ?? Options$Query$GetRecommendedAnime());
-  graphql.ObservableQuery<Query$GetRecommendedAnime>
-      watchQuery$GetRecommendedAnime(
-              [WatchOptions$Query$GetRecommendedAnime? options]) =>
-          this.watchQuery(options ?? WatchOptions$Query$GetRecommendedAnime());
-  void writeQuery$GetRecommendedAnime({
-    required Query$GetRecommendedAnime data,
-    Variables$Query$GetRecommendedAnime? variables,
+extension ClientExtension$Query$GetRecommendedManga on graphql.GraphQLClient {
+  Future<graphql.QueryResult<Query$GetRecommendedManga>>
+      query$GetRecommendedManga(
+              [Options$Query$GetRecommendedManga? options]) async =>
+          await this.query(options ?? Options$Query$GetRecommendedManga());
+  graphql.ObservableQuery<Query$GetRecommendedManga>
+      watchQuery$GetRecommendedManga(
+              [WatchOptions$Query$GetRecommendedManga? options]) =>
+          this.watchQuery(options ?? WatchOptions$Query$GetRecommendedManga());
+  void writeQuery$GetRecommendedManga({
+    required Query$GetRecommendedManga data,
+    Variables$Query$GetRecommendedManga? variables,
     bool broadcast = true,
   }) =>
       this.writeQuery(
         graphql.Request(
           operation:
-              graphql.Operation(document: documentNodeQueryGetRecommendedAnime),
+              graphql.Operation(document: documentNodeQueryGetRecommendedManga),
           variables: variables?.toJson() ?? const {},
         ),
         data: data.toJson(),
         broadcast: broadcast,
       );
-  Query$GetRecommendedAnime? readQuery$GetRecommendedAnime({
-    Variables$Query$GetRecommendedAnime? variables,
+  Query$GetRecommendedManga? readQuery$GetRecommendedManga({
+    Variables$Query$GetRecommendedManga? variables,
     bool optimistic = true,
   }) {
     final result = this.readQuery(
       graphql.Request(
         operation:
-            graphql.Operation(document: documentNodeQueryGetRecommendedAnime),
+            graphql.Operation(document: documentNodeQueryGetRecommendedManga),
         variables: variables?.toJson() ?? const {},
       ),
       optimistic: optimistic,
     );
-    return result == null ? null : Query$GetRecommendedAnime.fromJson(result);
+    return result == null ? null : Query$GetRecommendedManga.fromJson(result);
   }
 }
 
-graphql_flutter.QueryHookResult<Query$GetRecommendedAnime>
-    useQuery$GetRecommendedAnime(
-            [Options$Query$GetRecommendedAnime? options]) =>
+graphql_flutter.QueryHookResult<Query$GetRecommendedManga>
+    useQuery$GetRecommendedManga(
+            [Options$Query$GetRecommendedManga? options]) =>
         graphql_flutter
-            .useQuery(options ?? Options$Query$GetRecommendedAnime());
-graphql.ObservableQuery<Query$GetRecommendedAnime>
-    useWatchQuery$GetRecommendedAnime(
-            [WatchOptions$Query$GetRecommendedAnime? options]) =>
+            .useQuery(options ?? Options$Query$GetRecommendedManga());
+graphql.ObservableQuery<Query$GetRecommendedManga>
+    useWatchQuery$GetRecommendedManga(
+            [WatchOptions$Query$GetRecommendedManga? options]) =>
         graphql_flutter
-            .useWatchQuery(options ?? WatchOptions$Query$GetRecommendedAnime());
+            .useWatchQuery(options ?? WatchOptions$Query$GetRecommendedManga());
 
-class Query$GetRecommendedAnime$Widget
-    extends graphql_flutter.Query<Query$GetRecommendedAnime> {
-  Query$GetRecommendedAnime$Widget({
+class Query$GetRecommendedManga$Widget
+    extends graphql_flutter.Query<Query$GetRecommendedManga> {
+  Query$GetRecommendedManga$Widget({
     widgets.Key? key,
-    Options$Query$GetRecommendedAnime? options,
-    required graphql_flutter.QueryBuilder<Query$GetRecommendedAnime> builder,
+    Options$Query$GetRecommendedManga? options,
+    required graphql_flutter.QueryBuilder<Query$GetRecommendedManga> builder,
   }) : super(
           key: key,
-          options: options ?? Options$Query$GetRecommendedAnime(),
+          options: options ?? Options$Query$GetRecommendedManga(),
           builder: builder,
         );
 }
 
-class Query$GetRecommendedAnime$Page {
-  Query$GetRecommendedAnime$Page({
+class Query$GetRecommendedManga$Page {
+  Query$GetRecommendedManga$Page({
     this.pageInfo,
     this.media,
     this.$__typename = 'Page',
   });
 
-  factory Query$GetRecommendedAnime$Page.fromJson(Map<String, dynamic> json) {
+  factory Query$GetRecommendedManga$Page.fromJson(Map<String, dynamic> json) {
     final l$pageInfo = json['pageInfo'];
     final l$media = json['media'];
     final l$$__typename = json['__typename'];
-    return Query$GetRecommendedAnime$Page(
+    return Query$GetRecommendedManga$Page(
       pageInfo: l$pageInfo == null
           ? null
-          : Query$GetRecommendedAnime$Page$pageInfo.fromJson(
+          : Query$GetRecommendedManga$Page$pageInfo.fromJson(
               (l$pageInfo as Map<String, dynamic>)),
       media: (l$media as List<dynamic>?)
           ?.map((e) => e == null
@@ -626,7 +626,7 @@ class Query$GetRecommendedAnime$Page {
     );
   }
 
-  final Query$GetRecommendedAnime$Page$pageInfo? pageInfo;
+  final Query$GetRecommendedManga$Page$pageInfo? pageInfo;
 
   final List<Fragment$MediaShort?>? media;
 
@@ -660,7 +660,7 @@ class Query$GetRecommendedAnime$Page {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Query$GetRecommendedAnime$Page) ||
+    if (!(other is Query$GetRecommendedManga$Page) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -694,46 +694,46 @@ class Query$GetRecommendedAnime$Page {
   }
 }
 
-extension UtilityExtension$Query$GetRecommendedAnime$Page
-    on Query$GetRecommendedAnime$Page {
-  CopyWith$Query$GetRecommendedAnime$Page<Query$GetRecommendedAnime$Page>
-      get copyWith => CopyWith$Query$GetRecommendedAnime$Page(
+extension UtilityExtension$Query$GetRecommendedManga$Page
+    on Query$GetRecommendedManga$Page {
+  CopyWith$Query$GetRecommendedManga$Page<Query$GetRecommendedManga$Page>
+      get copyWith => CopyWith$Query$GetRecommendedManga$Page(
             this,
             (i) => i,
           );
 }
 
-abstract class CopyWith$Query$GetRecommendedAnime$Page<TRes> {
-  factory CopyWith$Query$GetRecommendedAnime$Page(
-    Query$GetRecommendedAnime$Page instance,
-    TRes Function(Query$GetRecommendedAnime$Page) then,
-  ) = _CopyWithImpl$Query$GetRecommendedAnime$Page;
+abstract class CopyWith$Query$GetRecommendedManga$Page<TRes> {
+  factory CopyWith$Query$GetRecommendedManga$Page(
+    Query$GetRecommendedManga$Page instance,
+    TRes Function(Query$GetRecommendedManga$Page) then,
+  ) = _CopyWithImpl$Query$GetRecommendedManga$Page;
 
-  factory CopyWith$Query$GetRecommendedAnime$Page.stub(TRes res) =
-      _CopyWithStubImpl$Query$GetRecommendedAnime$Page;
+  factory CopyWith$Query$GetRecommendedManga$Page.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetRecommendedManga$Page;
 
   TRes call({
-    Query$GetRecommendedAnime$Page$pageInfo? pageInfo,
+    Query$GetRecommendedManga$Page$pageInfo? pageInfo,
     List<Fragment$MediaShort?>? media,
     String? $__typename,
   });
-  CopyWith$Query$GetRecommendedAnime$Page$pageInfo<TRes> get pageInfo;
+  CopyWith$Query$GetRecommendedManga$Page$pageInfo<TRes> get pageInfo;
   TRes media(
       Iterable<Fragment$MediaShort?>? Function(
               Iterable<CopyWith$Fragment$MediaShort<Fragment$MediaShort>?>?)
           _fn);
 }
 
-class _CopyWithImpl$Query$GetRecommendedAnime$Page<TRes>
-    implements CopyWith$Query$GetRecommendedAnime$Page<TRes> {
-  _CopyWithImpl$Query$GetRecommendedAnime$Page(
+class _CopyWithImpl$Query$GetRecommendedManga$Page<TRes>
+    implements CopyWith$Query$GetRecommendedManga$Page<TRes> {
+  _CopyWithImpl$Query$GetRecommendedManga$Page(
     this._instance,
     this._then,
   );
 
-  final Query$GetRecommendedAnime$Page _instance;
+  final Query$GetRecommendedManga$Page _instance;
 
-  final TRes Function(Query$GetRecommendedAnime$Page) _then;
+  final TRes Function(Query$GetRecommendedManga$Page) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -742,10 +742,10 @@ class _CopyWithImpl$Query$GetRecommendedAnime$Page<TRes>
     Object? media = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$GetRecommendedAnime$Page(
+      _then(Query$GetRecommendedManga$Page(
         pageInfo: pageInfo == _undefined
             ? _instance.pageInfo
-            : (pageInfo as Query$GetRecommendedAnime$Page$pageInfo?),
+            : (pageInfo as Query$GetRecommendedManga$Page$pageInfo?),
         media: media == _undefined
             ? _instance.media
             : (media as List<Fragment$MediaShort?>?),
@@ -753,12 +753,12 @@ class _CopyWithImpl$Query$GetRecommendedAnime$Page<TRes>
             ? _instance.$__typename
             : ($__typename as String),
       ));
-  CopyWith$Query$GetRecommendedAnime$Page$pageInfo<TRes> get pageInfo {
+  CopyWith$Query$GetRecommendedManga$Page$pageInfo<TRes> get pageInfo {
     final local$pageInfo = _instance.pageInfo;
     return local$pageInfo == null
-        ? CopyWith$Query$GetRecommendedAnime$Page$pageInfo.stub(
+        ? CopyWith$Query$GetRecommendedManga$Page$pageInfo.stub(
             _then(_instance))
-        : CopyWith$Query$GetRecommendedAnime$Page$pageInfo(
+        : CopyWith$Query$GetRecommendedManga$Page$pageInfo(
             local$pageInfo, (e) => call(pageInfo: e));
   }
 
@@ -775,38 +775,38 @@ class _CopyWithImpl$Query$GetRecommendedAnime$Page<TRes>
                 )))?.toList());
 }
 
-class _CopyWithStubImpl$Query$GetRecommendedAnime$Page<TRes>
-    implements CopyWith$Query$GetRecommendedAnime$Page<TRes> {
-  _CopyWithStubImpl$Query$GetRecommendedAnime$Page(this._res);
+class _CopyWithStubImpl$Query$GetRecommendedManga$Page<TRes>
+    implements CopyWith$Query$GetRecommendedManga$Page<TRes> {
+  _CopyWithStubImpl$Query$GetRecommendedManga$Page(this._res);
 
   TRes _res;
 
   call({
-    Query$GetRecommendedAnime$Page$pageInfo? pageInfo,
+    Query$GetRecommendedManga$Page$pageInfo? pageInfo,
     List<Fragment$MediaShort?>? media,
     String? $__typename,
   }) =>
       _res;
-  CopyWith$Query$GetRecommendedAnime$Page$pageInfo<TRes> get pageInfo =>
-      CopyWith$Query$GetRecommendedAnime$Page$pageInfo.stub(_res);
+  CopyWith$Query$GetRecommendedManga$Page$pageInfo<TRes> get pageInfo =>
+      CopyWith$Query$GetRecommendedManga$Page$pageInfo.stub(_res);
   media(_fn) => _res;
 }
 
-class Query$GetRecommendedAnime$Page$pageInfo {
-  Query$GetRecommendedAnime$Page$pageInfo({
+class Query$GetRecommendedManga$Page$pageInfo {
+  Query$GetRecommendedManga$Page$pageInfo({
     this.currentPage,
     this.hasNextPage,
     this.lastPage,
     this.$__typename = 'PageInfo',
   });
 
-  factory Query$GetRecommendedAnime$Page$pageInfo.fromJson(
+  factory Query$GetRecommendedManga$Page$pageInfo.fromJson(
       Map<String, dynamic> json) {
     final l$currentPage = json['currentPage'];
     final l$hasNextPage = json['hasNextPage'];
     final l$lastPage = json['lastPage'];
     final l$$__typename = json['__typename'];
-    return Query$GetRecommendedAnime$Page$pageInfo(
+    return Query$GetRecommendedManga$Page$pageInfo(
       currentPage: (l$currentPage as int?),
       hasNextPage: (l$hasNextPage as bool?),
       lastPage: (l$lastPage as int?),
@@ -854,7 +854,7 @@ class Query$GetRecommendedAnime$Page$pageInfo {
     if (identical(this, other)) {
       return true;
     }
-    if (!(other is Query$GetRecommendedAnime$Page$pageInfo) ||
+    if (!(other is Query$GetRecommendedManga$Page$pageInfo) ||
         runtimeType != other.runtimeType) {
       return false;
     }
@@ -882,24 +882,24 @@ class Query$GetRecommendedAnime$Page$pageInfo {
   }
 }
 
-extension UtilityExtension$Query$GetRecommendedAnime$Page$pageInfo
-    on Query$GetRecommendedAnime$Page$pageInfo {
-  CopyWith$Query$GetRecommendedAnime$Page$pageInfo<
-          Query$GetRecommendedAnime$Page$pageInfo>
-      get copyWith => CopyWith$Query$GetRecommendedAnime$Page$pageInfo(
+extension UtilityExtension$Query$GetRecommendedManga$Page$pageInfo
+    on Query$GetRecommendedManga$Page$pageInfo {
+  CopyWith$Query$GetRecommendedManga$Page$pageInfo<
+          Query$GetRecommendedManga$Page$pageInfo>
+      get copyWith => CopyWith$Query$GetRecommendedManga$Page$pageInfo(
             this,
             (i) => i,
           );
 }
 
-abstract class CopyWith$Query$GetRecommendedAnime$Page$pageInfo<TRes> {
-  factory CopyWith$Query$GetRecommendedAnime$Page$pageInfo(
-    Query$GetRecommendedAnime$Page$pageInfo instance,
-    TRes Function(Query$GetRecommendedAnime$Page$pageInfo) then,
-  ) = _CopyWithImpl$Query$GetRecommendedAnime$Page$pageInfo;
+abstract class CopyWith$Query$GetRecommendedManga$Page$pageInfo<TRes> {
+  factory CopyWith$Query$GetRecommendedManga$Page$pageInfo(
+    Query$GetRecommendedManga$Page$pageInfo instance,
+    TRes Function(Query$GetRecommendedManga$Page$pageInfo) then,
+  ) = _CopyWithImpl$Query$GetRecommendedManga$Page$pageInfo;
 
-  factory CopyWith$Query$GetRecommendedAnime$Page$pageInfo.stub(TRes res) =
-      _CopyWithStubImpl$Query$GetRecommendedAnime$Page$pageInfo;
+  factory CopyWith$Query$GetRecommendedManga$Page$pageInfo.stub(TRes res) =
+      _CopyWithStubImpl$Query$GetRecommendedManga$Page$pageInfo;
 
   TRes call({
     int? currentPage,
@@ -909,16 +909,16 @@ abstract class CopyWith$Query$GetRecommendedAnime$Page$pageInfo<TRes> {
   });
 }
 
-class _CopyWithImpl$Query$GetRecommendedAnime$Page$pageInfo<TRes>
-    implements CopyWith$Query$GetRecommendedAnime$Page$pageInfo<TRes> {
-  _CopyWithImpl$Query$GetRecommendedAnime$Page$pageInfo(
+class _CopyWithImpl$Query$GetRecommendedManga$Page$pageInfo<TRes>
+    implements CopyWith$Query$GetRecommendedManga$Page$pageInfo<TRes> {
+  _CopyWithImpl$Query$GetRecommendedManga$Page$pageInfo(
     this._instance,
     this._then,
   );
 
-  final Query$GetRecommendedAnime$Page$pageInfo _instance;
+  final Query$GetRecommendedManga$Page$pageInfo _instance;
 
-  final TRes Function(Query$GetRecommendedAnime$Page$pageInfo) _then;
+  final TRes Function(Query$GetRecommendedManga$Page$pageInfo) _then;
 
   static const _undefined = <dynamic, dynamic>{};
 
@@ -928,7 +928,7 @@ class _CopyWithImpl$Query$GetRecommendedAnime$Page$pageInfo<TRes>
     Object? lastPage = _undefined,
     Object? $__typename = _undefined,
   }) =>
-      _then(Query$GetRecommendedAnime$Page$pageInfo(
+      _then(Query$GetRecommendedManga$Page$pageInfo(
         currentPage: currentPage == _undefined
             ? _instance.currentPage
             : (currentPage as int?),
@@ -943,9 +943,9 @@ class _CopyWithImpl$Query$GetRecommendedAnime$Page$pageInfo<TRes>
       ));
 }
 
-class _CopyWithStubImpl$Query$GetRecommendedAnime$Page$pageInfo<TRes>
-    implements CopyWith$Query$GetRecommendedAnime$Page$pageInfo<TRes> {
-  _CopyWithStubImpl$Query$GetRecommendedAnime$Page$pageInfo(this._res);
+class _CopyWithStubImpl$Query$GetRecommendedManga$Page$pageInfo<TRes>
+    implements CopyWith$Query$GetRecommendedManga$Page$pageInfo<TRes> {
+  _CopyWithStubImpl$Query$GetRecommendedManga$Page$pageInfo(this._res);
 
   TRes _res;
 

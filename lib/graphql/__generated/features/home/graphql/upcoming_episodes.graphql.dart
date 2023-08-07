@@ -7,6 +7,110 @@ import 'package:gql/ast.dart';
 import 'package:graphql/client.dart' as graphql;
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql_flutter;
 
+class Variables$Query$GetUpcomingEpisodes {
+  factory Variables$Query$GetUpcomingEpisodes({int? page}) =>
+      Variables$Query$GetUpcomingEpisodes._({
+        if (page != null) r'page': page,
+      });
+
+  Variables$Query$GetUpcomingEpisodes._(this._$data);
+
+  factory Variables$Query$GetUpcomingEpisodes.fromJson(
+      Map<String, dynamic> data) {
+    final result$data = <String, dynamic>{};
+    if (data.containsKey('page')) {
+      final l$page = data['page'];
+      result$data['page'] = (l$page as int?);
+    }
+    return Variables$Query$GetUpcomingEpisodes._(result$data);
+  }
+
+  Map<String, dynamic> _$data;
+
+  int? get page => (_$data['page'] as int?);
+  Map<String, dynamic> toJson() {
+    final result$data = <String, dynamic>{};
+    if (_$data.containsKey('page')) {
+      final l$page = page;
+      result$data['page'] = l$page;
+    }
+    return result$data;
+  }
+
+  CopyWith$Variables$Query$GetUpcomingEpisodes<
+          Variables$Query$GetUpcomingEpisodes>
+      get copyWith => CopyWith$Variables$Query$GetUpcomingEpisodes(
+            this,
+            (i) => i,
+          );
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (!(other is Variables$Query$GetUpcomingEpisodes) ||
+        runtimeType != other.runtimeType) {
+      return false;
+    }
+    final l$page = page;
+    final lOther$page = other.page;
+    if (_$data.containsKey('page') != other._$data.containsKey('page')) {
+      return false;
+    }
+    if (l$page != lOther$page) {
+      return false;
+    }
+    return true;
+  }
+
+  @override
+  int get hashCode {
+    final l$page = page;
+    return Object.hashAll([_$data.containsKey('page') ? l$page : const {}]);
+  }
+}
+
+abstract class CopyWith$Variables$Query$GetUpcomingEpisodes<TRes> {
+  factory CopyWith$Variables$Query$GetUpcomingEpisodes(
+    Variables$Query$GetUpcomingEpisodes instance,
+    TRes Function(Variables$Query$GetUpcomingEpisodes) then,
+  ) = _CopyWithImpl$Variables$Query$GetUpcomingEpisodes;
+
+  factory CopyWith$Variables$Query$GetUpcomingEpisodes.stub(TRes res) =
+      _CopyWithStubImpl$Variables$Query$GetUpcomingEpisodes;
+
+  TRes call({int? page});
+}
+
+class _CopyWithImpl$Variables$Query$GetUpcomingEpisodes<TRes>
+    implements CopyWith$Variables$Query$GetUpcomingEpisodes<TRes> {
+  _CopyWithImpl$Variables$Query$GetUpcomingEpisodes(
+    this._instance,
+    this._then,
+  );
+
+  final Variables$Query$GetUpcomingEpisodes _instance;
+
+  final TRes Function(Variables$Query$GetUpcomingEpisodes) _then;
+
+  static const _undefined = <dynamic, dynamic>{};
+
+  TRes call({Object? page = _undefined}) =>
+      _then(Variables$Query$GetUpcomingEpisodes._({
+        ..._instance._$data,
+        if (page != _undefined) 'page': (page as int?),
+      }));
+}
+
+class _CopyWithStubImpl$Variables$Query$GetUpcomingEpisodes<TRes>
+    implements CopyWith$Variables$Query$GetUpcomingEpisodes<TRes> {
+  _CopyWithStubImpl$Variables$Query$GetUpcomingEpisodes(this._res);
+
+  TRes _res;
+
+  call({int? page}) => _res;
+}
+
 class Query$GetUpcomingEpisodes {
   Query$GetUpcomingEpisodes({
     this.Page,
@@ -149,7 +253,17 @@ const documentNodeQueryGetUpcomingEpisodes = DocumentNode(definitions: [
   OperationDefinitionNode(
     type: OperationType.query,
     name: NameNode(value: 'GetUpcomingEpisodes'),
-    variableDefinitions: [],
+    variableDefinitions: [
+      VariableDefinitionNode(
+        variable: VariableNode(name: NameNode(value: 'page')),
+        type: NamedTypeNode(
+          name: NameNode(value: 'Int'),
+          isNonNull: false,
+        ),
+        defaultValue: DefaultValueNode(value: null),
+        directives: [],
+      )
+    ],
     directives: [],
     selectionSet: SelectionSetNode(selections: [
       FieldNode(
@@ -159,7 +273,11 @@ const documentNodeQueryGetUpcomingEpisodes = DocumentNode(definitions: [
           ArgumentNode(
             name: NameNode(value: 'perPage'),
             value: IntValueNode(value: '10'),
-          )
+          ),
+          ArgumentNode(
+            name: NameNode(value: 'page'),
+            value: VariableNode(name: NameNode(value: 'page')),
+          ),
         ],
         directives: [],
         selectionSet: SelectionSetNode(selections: [
@@ -342,6 +460,7 @@ class Options$Query$GetUpcomingEpisodes
     extends graphql.QueryOptions<Query$GetUpcomingEpisodes> {
   Options$Query$GetUpcomingEpisodes({
     String? operationName,
+    Variables$Query$GetUpcomingEpisodes? variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
@@ -353,6 +472,7 @@ class Options$Query$GetUpcomingEpisodes
     graphql.OnQueryError? onError,
   })  : onCompleteWithParsed = onComplete,
         super(
+          variables: variables?.toJson() ?? {},
           operationName: operationName,
           fetchPolicy: fetchPolicy,
           errorPolicy: errorPolicy,
@@ -388,6 +508,7 @@ class WatchOptions$Query$GetUpcomingEpisodes
     extends graphql.WatchQueryOptions<Query$GetUpcomingEpisodes> {
   WatchOptions$Query$GetUpcomingEpisodes({
     String? operationName,
+    Variables$Query$GetUpcomingEpisodes? variables,
     graphql.FetchPolicy? fetchPolicy,
     graphql.ErrorPolicy? errorPolicy,
     graphql.CacheRereadPolicy? cacheRereadPolicy,
@@ -399,6 +520,7 @@ class WatchOptions$Query$GetUpcomingEpisodes
     bool carryForwardDataOnException = true,
     bool fetchResults = false,
   }) : super(
+          variables: variables?.toJson() ?? {},
           operationName: operationName,
           fetchPolicy: fetchPolicy,
           errorPolicy: errorPolicy,
@@ -416,10 +538,12 @@ class WatchOptions$Query$GetUpcomingEpisodes
 
 class FetchMoreOptions$Query$GetUpcomingEpisodes
     extends graphql.FetchMoreOptions {
-  FetchMoreOptions$Query$GetUpcomingEpisodes(
-      {required graphql.UpdateQuery updateQuery})
-      : super(
+  FetchMoreOptions$Query$GetUpcomingEpisodes({
+    required graphql.UpdateQuery updateQuery,
+    Variables$Query$GetUpcomingEpisodes? variables,
+  }) : super(
           updateQuery: updateQuery,
+          variables: variables?.toJson() ?? {},
           document: documentNodeQueryGetUpcomingEpisodes,
         );
 }
@@ -435,21 +559,28 @@ extension ClientExtension$Query$GetUpcomingEpisodes on graphql.GraphQLClient {
           this.watchQuery(options ?? WatchOptions$Query$GetUpcomingEpisodes());
   void writeQuery$GetUpcomingEpisodes({
     required Query$GetUpcomingEpisodes data,
+    Variables$Query$GetUpcomingEpisodes? variables,
     bool broadcast = true,
   }) =>
       this.writeQuery(
         graphql.Request(
-            operation: graphql.Operation(
-                document: documentNodeQueryGetUpcomingEpisodes)),
+          operation:
+              graphql.Operation(document: documentNodeQueryGetUpcomingEpisodes),
+          variables: variables?.toJson() ?? const {},
+        ),
         data: data.toJson(),
         broadcast: broadcast,
       );
-  Query$GetUpcomingEpisodes? readQuery$GetUpcomingEpisodes(
-      {bool optimistic = true}) {
+  Query$GetUpcomingEpisodes? readQuery$GetUpcomingEpisodes({
+    Variables$Query$GetUpcomingEpisodes? variables,
+    bool optimistic = true,
+  }) {
     final result = this.readQuery(
       graphql.Request(
-          operation: graphql.Operation(
-              document: documentNodeQueryGetUpcomingEpisodes)),
+        operation:
+            graphql.Operation(document: documentNodeQueryGetUpcomingEpisodes),
+        variables: variables?.toJson() ?? const {},
+      ),
       optimistic: optimistic,
     );
     return result == null ? null : Query$GetUpcomingEpisodes.fromJson(result);

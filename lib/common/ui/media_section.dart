@@ -12,7 +12,6 @@ import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/schema.graphql.dart';
 import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
-import 'package:otaku_world/utils/ui_utils.dart';
 
 class MediaSection<T> extends StatelessWidget {
   const MediaSection({
@@ -63,9 +62,7 @@ class MediaSection<T> extends StatelessWidget {
                       width: 25,
                     ),
                     InkWell(
-                      onTap: () {
-                        showSnackBar(context, 'Coming soon...');
-                      },
+                      onTap: onMorePressed,
                       child: SvgPicture.asset(AssetsConstants.arrowRight),
                     ),
                   ],

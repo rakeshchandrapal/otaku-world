@@ -36,5 +36,7 @@ class AssetsConstants {
   // Image placeholders
   static const String placeHolderImage85x120 = '$_placeholderImagesPath/85x120.png';
   static const String placeHolderImage115x169 = '$_placeholderImagesPath/115x169.png';
+  static const String placeHolderImage100x147 = '$_placeholderImagesPath/100x147.png';
+  static const String placeHolderImage110x162 = '$_placeholderImagesPath/110x162.png';
   static const String placeHolderImage210x310 = '$_placeholderImagesPath/210x310.png';
 }

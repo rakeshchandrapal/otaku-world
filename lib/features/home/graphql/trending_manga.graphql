@@ -1,5 +1,10 @@
-query GetTrendingManga {
-    Page(perPage: 10) {
+query GetTrendingManga($page: Int) {
+    Page(perPage: 30, page: $page) {
+        pageInfo {
+            currentPage
+            hasNextPage
+            lastPage
+        }
         media(sort: [TRENDING_DESC], type: MANGA) {
             ...MediaShort
         }
