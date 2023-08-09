@@ -13,7 +13,6 @@ import 'package:otaku_world/constants/string_constants.dart';
 import 'package:otaku_world/providers/graphql.dart';
 import 'package:otaku_world/providers/shared_preferences.dart';
 import 'package:otaku_world/theme/colors.dart';
-import 'package:otaku_world/utils/ui_utils.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -22,6 +21,12 @@ final Uri authUri = Uri(
   host: 'anilist.co',
   path: '/api/v2/oauth/authorize',
   query: 'client_id=13595&response_type=token',
+);
+
+final Uri registerUri = Uri(
+  scheme: 'https',
+  host: 'anilist.co',
+  path: '/signup',
 );
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -37,67 +42,76 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: (context.canPop()) ? CustomBackButton(context: context) : null,
-      //   backgroundColor: AppColors.raisinBlack,
-      //   elevation: 0,
-      // ),
       appBar: const SimpleAppBar(
         title: '',
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(AssetsConstants.appLogo),
-            const SizedBox(
-              height: 40,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 100,
-                  child: Text(
-                    LoginConstants.loginToAniListHeading,
-                    style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(AssetsConstants.appLogo),
+              const SizedBox(
+                height: 40,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 100,
+                    child: Text(
+                      LoginConstants.loginToAniListHeading,
+                      style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Poppins',
+                          ),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 30,
-                  child: Text(
-                    LoginConstants.loginToAniListSubHeading,
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontFamily: 'Poppins',
-                          color: AppColors.white,
-                        ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 30,
+                    child: Text(
+                      LoginConstants.loginToAniListSubHeading,
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                            fontFamily: 'Poppins',
+                            color: AppColors.white,
+                          ),
+                    ),
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 55,
-            ),
-            PrimaryButton(
-              onTap: () {
-                login();
-              },
-              label: 'Log In',
-              horizontalPadding: 15,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            PrimaryOutlinedButton(
-              onTap: () {
-                showSnackBar(context, 'Coming soon');
-              },
-              label: 'Register',
-              horizontalPadding: 15,
-            ),
-          ],
+                  const SizedBox(height: 25,),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 30,
+                    child: Text(
+                      LoginConstants.registerText,
+                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontFamily: 'Poppins',
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 55,
+              ),
+              PrimaryButton(
+                onTap: () {
+                  login();
+                },
+                label: 'Log In',
+                horizontalPadding: 15,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              PrimaryOutlinedButton(
+                onTap: () {
+                  register();
+                },
+                label: 'Register',
+                horizontalPadding: 15,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -154,5 +168,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     } catch (e) {
       dev.log('Got error: $e');
     }
+  }
+  
+  void register() {
+    _launchUrl(registerUri);
   }
 }

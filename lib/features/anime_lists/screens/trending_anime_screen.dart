@@ -1,62 +1,101 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otaku_world/common/controllers/media_grid_controller.dart';
+import 'package:otaku_world/common/ui/error_text.dart';
 import 'package:otaku_world/common/ui/media_grid_view.dart';
 import 'package:otaku_world/common/ui/simple_app_bar.dart';
+import 'package:otaku_world/constants/assets_constants.dart';
 import 'package:otaku_world/graphql/__generated/features/home/graphql/trending_anime.graphql.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
+
+import 'dart:developer' as dev;
+
+import 'package:otaku_world/theme/colors.dart';
 
 class TrendingAnimeScreen extends HookConsumerWidget {
   const TrendingAnimeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    dev.log('Building the TrendingAnimeScreen', name: 'Data');
     var trendingAnimeHook = useQuery$GetTrendingAnime(
       Options$Query$GetTrendingAnime(
         variables: Variables$Query$GetTrendingAnime(
-          page: ref.watch(trendingAnimeControllerProvider).pageCount,
+          page: 1,
         ),
       ),
     );
 
-    var mediaList = ref.watch(trendingAnimeControllerProvider).mediaList;
     var scrollController = useScrollController();
 
     useEffect(() {
-      MediaGridController listController =
-      ref.read(trendingAnimeControllerProvider);
       scrollController.addListener(() {
+        if (scrollController.offset > 0) {
+          ref.read(trendingAnimeTopPositionController.notifier).setAtTop(false);
+        } else {
+          ref.read(trendingAnimeTopPositionController.notifier).setAtTop(true);
+        }
+
         if (scrollController.position.atEdge &&
             scrollController.position.pixels != 0) {
-          if (!listController.isLoading &&
-              !trendingAnimeHook.result.isLoading) {
-            if (ref.read(trendingAnimeControllerProvider).hasNextPage) {
-              listController.toggleIsLoading();
-              listController.incrementPageCount();
-            }
-          }
+          ref
+              .read(trendingAnimeBottomPositionController.notifier)
+              .setAtBottom(true);
+        } else {
+          ref
+              .read(trendingAnimeBottomPositionController.notifier)
+              .setAtBottom(false);
         }
       });
+
       return null;
     });
 
     useEffect(() {
-      if (trendingAnimeHook.result.data != null) {
-        bool hasNextPage = trendingAnimeHook
-            .result.parsedData!.Page!.pageInfo!.hasNextPage ??
-            false;
+      if (ref.read(trendingAnimeController.notifier).pageCount == 1 &&
+          trendingAnimeHook.result.hasException) {
+        dev.log('Got error: ${trendingAnimeHook.result.exception}',
+            name: 'Data');
+        ref.read(trendingAnimeController.notifier).setIsLoading(false);
+        return;
+      }
 
-        ref
-            .read(trendingAnimeControllerProvider)
-            .setHasNextPage(hasNextPage);
-        MediaGridController listController =
-        ref.read(trendingAnimeControllerProvider);
-        List<Fragment$MediaShort?> newMediaList =
-        trendingAnimeHook.result.parsedData!.Page!.media!;
-        if (listController.mediaList.length < listController.pageCount * 30 &&
-            listController.mediaList.length % 30 == 0) {
-          listController.addToMediaList(newMediaList);
+      if (ref.read(trendingAnimeController.notifier).pageCount == 1 &&
+          trendingAnimeHook.result.isLoading) {
+        dev.log('Hook is loading', name: 'Data');
+        ref.read(trendingAnimeController.notifier).setIsLoading(true);
+        return;
+      }
+
+      dev.log('Hook data changed: ${trendingAnimeHook.result.data}',
+          name: 'Data');
+      if (trendingAnimeHook.result.data != null) {
+        bool hasNextPage =
+            trendingAnimeHook.result.parsedData!.Page!.pageInfo!.hasNextPage ??
+                false;
+        int currentPage =
+            trendingAnimeHook.result.parsedData!.Page!.pageInfo!.currentPage!;
+
+        if (currentPage == 1 &&
+            ref.read(trendingAnimeController.notifier).lastVisitedPage == 1) {
+          ref
+              .read(trendingAnimeController.notifier)
+              .setHasNextPage(hasNextPage);
+
+          MediaGridControllerStateNotifier listController =
+              ref.read(trendingAnimeController.notifier);
+          List<Fragment$MediaShort?> newMediaList =
+              trendingAnimeHook.result.parsedData!.Page!.media!;
+          if (listController.mediaList.length <
+                  listController.lastVisitedPage * 30 &&
+              listController.mediaList.length % 30 == 0) {
+            listController.addToMediaList(newMediaList);
+          }
+        } else {
+          ref.read(trendingAnimeController.notifier).setIsLoading(false);
         }
       }
 
@@ -67,20 +106,169 @@ class TrendingAnimeScreen extends HookConsumerWidget {
       appBar: const SimpleAppBar(
         title: 'Trending Anime',
       ),
-      body: (trendingAnimeHook.result.isLoading && mediaList.isEmpty)
-          ? const CircularProgressIndicator()
-          : Center(
-        child: Column(
-          children: [
-            MediaGridView(
-              controller: scrollController,
-              mediaList: mediaList,
-            ),
-            if (ref.watch(trendingAnimeControllerProvider).isLoading)
-              const CircularProgressIndicator()
-          ],
+      // If hook has any kind of error and it's on first time (list is empty) show the error and tell user to try again
+      body: (trendingAnimeHook.result.hasException &&
+              ref.read(trendingAnimeController.notifier).mediaList.isEmpty)
+          ? Center(
+              child: ErrorText(
+                text: 'Some error occurred! Please try again!',
+                onPressed: trendingAnimeHook.refetch,
+              ),
+            )
+          // If there's no error and hook is fetching data (loading) and also list is empty (first time fetching data) show progress indicator
+          : (ref.watch(trendingAnimeController) &&
+                  ref.watch(trendingAnimeController.notifier).mediaList.isEmpty)
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    color: AppColors.sunsetOrange,
+                  ),
+                )
+              // If there's no error and hook is not fetching data first time show our anime list
+              : RefreshIndicator(
+                  color: AppColors.sunsetOrange,
+                  backgroundColor: AppColors.raisinBlack,
+                  onRefresh: () async {
+                    ref
+                        .read(trendingAnimeController.notifier)
+                        .resetController();
+                    trendingAnimeHook.refetch();
+                  },
+                  child: Center(
+                    child: Stack(
+                      children: [
+                        MediaGridView(
+                          controller: scrollController,
+                          mediaList: ref
+                              .watch(trendingAnimeController.notifier)
+                              .mediaList,
+                        ),
+                        Positioned(
+                          left: 10,
+                          right: 10,
+                          bottom: 10,
+                          child: Visibility(
+                            visible: ref.watch(
+                                    trendingAnimeBottomPositionController) &&
+                                ref
+                                    .watch(trendingAnimeController.notifier)
+                                    .hasNextPage,
+                            child: ref.watch(trendingAnimeController)
+                                ? const Center(
+                                    child: CircularProgressIndicator(
+                                      color: AppColors.sunsetOrange,
+                                    ),
+                                  )
+                                : SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width - 20,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        fetchMoreData(ref, trendingAnimeHook);
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.sunsetOrange
+                                            .withOpacity(0.65),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        'Load More',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium
+                                            ?.copyWith(
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+      floatingActionButton: Visibility(
+        visible: !ref.watch(trendingAnimeTopPositionController),
+        child: Padding(
+          padding: const EdgeInsets.only(
+            bottom: 40,
+          ),
+          child: FloatingActionButton.small(
+            onPressed: () {
+              scrollController.animateTo(
+                0,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeInOut,
+              );
+            },
+            elevation: 0,
+            backgroundColor: AppColors.sunsetOrange.withOpacity(0.75),
+            child: SvgPicture.asset(AssetsConstants.arrowUp),
+          ),
         ),
       ),
     );
+  }
+
+  void fetchMoreData(
+    WidgetRef ref,
+    QueryHookResult<Query$GetTrendingAnime> hook,
+  ) {
+    if (!ref.read(trendingAnimeController)) {
+      dev.log('Fetching more data from hook', name: 'Data');
+      ref.read(trendingAnimeController.notifier).incrementPageCount();
+      hook
+          .fetchMore(
+            FetchMoreOptions$Query$GetTrendingAnime(
+              variables: Variables$Query$GetTrendingAnime(
+                page: ref.read(trendingAnimeController.notifier).pageCount,
+              ),
+              updateQuery: (previousResultData, fetchMoreResultData) {
+                if (fetchMoreResultData != null) {
+                  bool hasNextPage =
+                      fetchMoreResultData['Page']['pageInfo']['hasNextPage'];
+                  int currentPage =
+                      fetchMoreResultData['Page']['pageInfo']['currentPage'];
+                  List<Fragment$MediaShort?> newMediaList =
+                      (fetchMoreResultData['Page']['media'] as List<dynamic>)
+                          .map(
+                    (e) {
+                      return Fragment$MediaShort.fromJson(
+                        e as Map<String, dynamic>,
+                      );
+                    },
+                  ).toList();
+
+                  ref
+                      .read(trendingAnimeController.notifier)
+                      .setLastVisitedPage(currentPage);
+                  ref
+                      .read(trendingAnimeController.notifier)
+                      .setHasNextPage(hasNextPage);
+                  ref
+                      .read(trendingAnimeController.notifier)
+                      .addToMediaList(newMediaList);
+
+                  ref
+                      .read(trendingAnimeBottomPositionController.notifier)
+                      .setAtBottom(false);
+                } else {
+                  dev.log('Data is null', name: 'Data');
+                  ref
+                      .read(trendingAnimeController.notifier)
+                      .decreasePageCount();
+                  // ref.read(trendingAnimeController.notifier).setIsLoading(false);
+                }
+
+                return fetchMoreResultData;
+              },
+            ),
+          )
+          .then((value) => dev.log(value.exception.toString(), name: 'Data'));
+    } else {}
   }
 }

@@ -21,61 +21,60 @@ class MediaGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 10,
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 10,
+      ),
+      child: GridView.builder(
+        shrinkWrap: true,
+        controller: controller,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+          childAspectRatio: 0.57,
         ),
-        child: GridView.builder(
-          controller: controller,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
-            childAspectRatio: 0.57,
-          ),
-          scrollDirection: Axis.vertical,
-          itemCount: mediaList.length,
-          itemBuilder: (context, index) {
-            return Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Stack(
-                    children: [
-                      _buildMediaPoster(
-                        mediaList[index]?.coverImage?.large,
-                        mediaList[index]!.type!,
-                      ),
-                      // Mean score
-                      Positioned(
-                        bottom: 0,
-                        right: 0,
-                        child: _buildMeanScore(
-                          context,
-                          mediaList[index]?.meanScore,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  // Manga title
-                  SizedBox(
-                    width: 100,
-                    child: Text(
-                      getTitle(mediaList[index]?.title) ?? '',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                            fontFamily: 'Roboto-Condensed',
-                          ),
+        scrollDirection: Axis.vertical,
+        itemCount: mediaList.length,
+        itemBuilder: (context, index) {
+          return Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    _buildMediaPoster(
+                      mediaList[index]?.coverImage?.large,
+                      mediaList[index]!.type!,
                     ),
+                    // Mean score
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: _buildMeanScore(
+                        context,
+                        mediaList[index]?.meanScore,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                // Manga title
+                SizedBox(
+                  width: 100,
+                  child: Text(
+                    getTitle(mediaList[index]?.title) ?? '',
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontFamily: 'Roboto-Condensed',
+                        ),
                   ),
-                ],
-              ),
-            );
-          },
-        ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -133,6 +132,9 @@ class MediaGridView extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               );
+            },
+            errorWidget: (context, url, error) {
+              return _buildPlaceholderImage110x162(type);
             },
             placeholder: (context, url) {
               return _buildPlaceholderImage110x162(type);

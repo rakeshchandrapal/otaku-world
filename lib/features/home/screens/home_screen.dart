@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otaku_world/common/ui/graphql.dart';
+import 'package:otaku_world/common/ui/main_app_bar.dart';
 import 'package:otaku_world/common/ui/media_section.dart';
 import 'package:otaku_world/constants/assets_constants.dart';
 import 'package:otaku_world/constants/string_constants.dart';
@@ -59,6 +60,7 @@ class HomeScreen extends HookConsumerWidget {
 
     return RefreshIndicator(
       onRefresh: () async {
+        ref.read(appBarNotifierProvider).triggerAppBarRebuild();
         upcomingEpisodesHook.refetch();
         recommendedAnimeHook.refetch();
         recommendedMangaHook.refetch();
@@ -193,7 +195,7 @@ class HomeScreen extends HookConsumerWidget {
   }
 
   Widget _buildUpcomingEpisodesSection(
-      BuildContext context, QueryHookResult<Query$GetUpcomingEpisodes> hook) {
+      BuildContext context, QueryHookResult<Query$GetUpcomingEpisodes> hook,) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -220,7 +222,9 @@ class HomeScreen extends HookConsumerWidget {
             );
           },
           loadingBuilder: () {
-            return const CircularProgressIndicator();
+            return const CircularProgressIndicator(
+              color: AppColors.sunsetOrange,
+            );
           },
         ),
       ],

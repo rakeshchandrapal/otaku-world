@@ -46,32 +46,45 @@ class MediaSection<T> extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  sectionHeader,
-                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                        fontFamily: 'Roboto-Condensed',
-                      ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                    bottom: 10,
+                  ),
+                  child: Text(
+                    sectionHeader,
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontFamily: 'Roboto-Condensed',
+                        ),
+                  ),
                 ),
                 Row(
                   children: [
                     InkWell(
                       onTap: onSliderPressed,
-                      child: SvgPicture.asset(AssetsConstants.viewSlider),
-                    ),
-                    const SizedBox(
-                      width: 25,
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 12,
+                          right: 12,
+                          bottom: 10,
+                        ),
+                        child: SvgPicture.asset(AssetsConstants.viewSlider),
+                      ),
                     ),
                     InkWell(
                       onTap: onMorePressed,
-                      child: SvgPicture.asset(AssetsConstants.arrowRight),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          left: 12,
+                          right: 12,
+                          bottom: 10,
+                        ),
+                        child: SvgPicture.asset(AssetsConstants.arrowRight),
+                      ),
                     ),
                   ],
                 ),
               ],
             ),
-          ),
-          const SizedBox(
-            height: 10,
           ),
           // Media list
           GraphQLBuilder(
@@ -118,7 +131,9 @@ class MediaSection<T> extends StatelessWidget {
               }
             },
             loadingBuilder: () {
-              return const CircularProgressIndicator();
+              return const CircularProgressIndicator(
+                color: AppColors.sunsetOrange,
+              );
             },
           ),
         ],

@@ -1,6 +1,7 @@
 // GENERATED FILE
 // DO NOT MODIFY
 // ignore_for_file: type=lint
+import '../schema.graphql.dart';
 
 class Input$AiringScheduleInput {
   factory Input$AiringScheduleInput({

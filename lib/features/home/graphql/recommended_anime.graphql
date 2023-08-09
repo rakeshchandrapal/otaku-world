@@ -5,7 +5,7 @@ query GetRecommendedAnime($page: Int, $categories: [String]) {
             hasNextPage
             lastPage
         }
-        media(genre_in:$categories, sort: [POPULARITY_DESC], type: ANIME) {
+        media(tagCategory_in:$categories, sort: [POPULARITY_DESC], type: ANIME) {
             ...MediaShort
         }
     }

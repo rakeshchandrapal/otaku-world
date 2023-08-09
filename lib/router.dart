@@ -46,7 +46,7 @@ final router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       path: '/mediaSlider/:sectionHeader',
       builder: (context, state) {
-        final mediaList = state.extra! as List<Fragment$MediaShort?>;
+        final mediaList = (state.extra ?? <Fragment$MediaShort?>[]) as List<Fragment$MediaShort?>;
         return MediaSliderScreen(
           sectionHeader: state.pathParameters['sectionHeader']!,
           mediaList: mediaList,

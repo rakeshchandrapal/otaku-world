@@ -5,7 +5,7 @@ query GetRecommendedManga($page: Int, $categories: [String]) {
             hasNextPage
             lastPage
         }
-        media(genre_in:$categories, sort: [POPULARITY_DESC], type: MANGA) {
+        media(tagCategory_in:$categories, sort: [POPULARITY_DESC], type: MANGA) {
             ...MediaShort
         }
     }

@@ -389,7 +389,7 @@ const documentNodeQueryGetRecommendedManga = DocumentNode(definitions: [
             alias: null,
             arguments: [
               ArgumentNode(
-                name: NameNode(value: 'genre_in'),
+                name: NameNode(value: 'tagCategory_in'),
                 value: VariableNode(name: NameNode(value: 'categories')),
               ),
               ArgumentNode(

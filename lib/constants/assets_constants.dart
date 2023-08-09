@@ -12,6 +12,7 @@ class AssetsConstants {
 
   static const String arrowRight = '$_iconsPath/arrow-right.svg';
   static const String arrowLeft = '$_iconsPath/arrow-left.svg';
+  static const String arrowUp = '$_iconsPath/arrow-up.svg';
 
   static const String nextButton = '$_buttonsPath/next-button.svg';
 

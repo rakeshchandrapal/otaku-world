@@ -37,28 +37,35 @@ class MediaSliderScreen extends StatelessWidget {
       appBar: SimpleAppBar(
         title: sectionHeader,
       ),
-      body: Center(
-        child: CarouselSlider(
-          carouselController: controller,
-          options: CarouselOptions(
-            enlargeCenterPage: true,
-            enlargeFactor: 0.3,
-            viewportFraction: 0.7,
-            enlargeStrategy: CenterPageEnlargeStrategy.zoom,
-            height: 650,
-          ),
-          items: mediaList.asMap().entries.map((entry) {
-            int index = entry.key;
-            Fragment$MediaShort? media = entry.value;
+      body: (mediaList.isEmpty)
+          ? Center(
+              child: Text(
+                'Nothing to Show',
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
+            )
+          : Center(
+              child: CarouselSlider(
+                carouselController: controller,
+                options: CarouselOptions(
+                  enlargeCenterPage: true,
+                  enlargeFactor: 0.3,
+                  viewportFraction: 0.7,
+                  enlargeStrategy: CenterPageEnlargeStrategy.zoom,
+                  height: 650,
+                ),
+                items: mediaList.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  Fragment$MediaShort? media = entry.value;
 
-            return _buildMediaCard(
-              context: context,
-              color: cardColors[index % cardColors.length],
-              media: media,
-            );
-          }).toList(),
-        ),
-      ),
+                  return _buildMediaCard(
+                    context: context,
+                    color: cardColors[index % cardColors.length],
+                    media: media,
+                  );
+                }).toList(),
+              ),
+            ),
     );
   }
 

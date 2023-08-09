@@ -3,6 +3,7 @@ class StringConstants {}
 class LoginConstants {
   static const String loginToAniListHeading = 'Login to Your AniList Account';
   static const String loginToAniListSubHeading = "You’ll be redirected to AniList website for login/register. Make sure that url is anilist.co before entering your email and password.";
+  static const String registerText = 'New here? Register on the AniList website and then log in to our app using your new account!';
 }
 
 class OnBoardingConstants {

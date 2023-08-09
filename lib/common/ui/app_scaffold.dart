@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:otaku_world/common/ui/main_app_bar.dart';
 import 'package:otaku_world/constants/assets_constants.dart';
 import 'package:otaku_world/theme/colors.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
-class AppScaffold extends StatelessWidget {
+class AppScaffold extends HookConsumerWidget {
   const AppScaffold({super.key, required this.child});
 
   final Widget child;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: const MainAppBar(),
       body: child,
