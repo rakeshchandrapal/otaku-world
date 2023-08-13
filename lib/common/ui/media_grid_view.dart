@@ -5,15 +5,17 @@ import 'package:otaku_world/constants/assets_constants.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'package:otaku_world/graphql/__generated/schema.graphql.dart';
 import 'package:otaku_world/theme/colors.dart';
+import 'package:otaku_world/utils/ui_utils.dart';
 
 import '../../services/caching/image_cache_manager.dart';
 
 class MediaGridView extends StatelessWidget {
-  const MediaGridView(
-      {super.key,
-      required this.controller,
-      this.crossAxisCount = 3,
-      required this.mediaList});
+  const MediaGridView({
+    super.key,
+    required this.controller,
+    this.crossAxisCount = 3,
+    required this.mediaList,
+  });
 
   final ScrollController controller;
   final List<Fragment$MediaShort?> mediaList;
@@ -21,6 +23,8 @@ class MediaGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: 10,
@@ -30,7 +34,7 @@ class MediaGridView extends StatelessWidget {
         controller: controller,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount,
-          childAspectRatio: 0.57,
+          childAspectRatio: 0.6,
         ),
         scrollDirection: Axis.vertical,
         itemCount: mediaList.length,
@@ -44,6 +48,7 @@ class MediaGridView extends StatelessWidget {
                     _buildMediaPoster(
                       mediaList[index]?.coverImage?.large,
                       mediaList[index]!.type!,
+                      size,
                     ),
                     // Mean score
                     Positioned(
@@ -61,7 +66,7 @@ class MediaGridView extends StatelessWidget {
                 ),
                 // Manga title
                 SizedBox(
-                  width: 100,
+                  width: getWidgetWidth(targetWidgetWidth: 100, screenWidth: size.width),
                   child: Text(
                     getTitle(mediaList[index]?.title) ?? '',
                     maxLines: 2,
@@ -114,13 +119,13 @@ class MediaGridView extends StatelessWidget {
     );
   }
 
-  Widget _buildMediaPoster(String? imageUrl, Enum$MediaType type) {
+  Widget _buildMediaPoster(String? imageUrl, Enum$MediaType type, Size size) {
     return (imageUrl != null)
         ? CachedNetworkImage(
             cacheManager: ImageCacheManager.instance,
             imageUrl: imageUrl,
-            width: 110,
-            height: 162,
+            width: getWidgetWidth(targetWidgetWidth: 100, screenWidth: size.width),
+            height: getWidgetHeight(targetWidgetHeight: 148, screenHeight: size.height),
             fit: BoxFit.cover,
             imageBuilder: (context, imageProvider) {
               return ClipRRect(

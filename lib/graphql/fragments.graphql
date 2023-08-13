@@ -1,6 +1,7 @@
 fragment MediaShort on Media {
     id
     title {
+        userPreferred
         english
         romaji
         native

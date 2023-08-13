@@ -11,6 +11,10 @@ import 'package:otaku_world/services/caching/image_cache_manager.dart';
 import 'package:otaku_world/theme/colors.dart';
 import 'package:otaku_world/utils/formatting_utils.dart';
 
+import 'dart:developer' as dev;
+
+import 'package:otaku_world/utils/ui_utils.dart';
+
 class MediaSliderScreen extends StatelessWidget {
   const MediaSliderScreen({
     super.key,
@@ -24,13 +28,14 @@ class MediaSliderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = CarouselController();
+    final size = MediaQuery.of(context).size;
+
+    dev.log('Width: ${size.width} | Height: ${size.height}', name: 'Size');
 
     final List<Color> cardColors = [
       AppColors.sunsetOrange,
       AppColors.crayola,
       AppColors.kiwi,
-      AppColors.silver,
-      AppColors.bronze,
     ];
 
     return Scaffold(
@@ -52,7 +57,7 @@ class MediaSliderScreen extends StatelessWidget {
                   enlargeFactor: 0.3,
                   viewportFraction: 0.7,
                   enlargeStrategy: CenterPageEnlargeStrategy.zoom,
-                  height: 650,
+                  height: getWidgetHeight(targetWidgetHeight: 650, screenHeight: size.height),
                 ),
                 items: mediaList.asMap().entries.map((entry) {
                   int index = entry.key;
@@ -60,6 +65,8 @@ class MediaSliderScreen extends StatelessWidget {
 
                   return _buildMediaCard(
                     context: context,
+                    width: getWidgetWidth(targetWidgetWidth: 240, screenWidth: size.width),
+                    screenWidth: size.width,
                     color: cardColors[index % cardColors.length],
                     media: media,
                   );
@@ -71,12 +78,14 @@ class MediaSliderScreen extends StatelessWidget {
 
   Widget _buildMediaCard({
     required BuildContext context,
+    required double width,
+    required double screenWidth,
     required Color color,
     required Fragment$MediaShort? media,
   }) {
     return Container(
-      width: 250,
-      height: 650,
+      width: width,
+      // height: 650,
       decoration: ShapeDecoration(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -93,7 +102,6 @@ class MediaSliderScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
                   vertical: 13,
                 ),
                 child: _buildMediaPoster(
@@ -162,14 +170,15 @@ class MediaSliderScreen extends StatelessWidget {
             bottom: 20,
             left: 12,
             right: 12,
-            child: _buildButtonOptions(),
+            child: _buildButtonOptions(screenWidth),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildButtonOptions() {
+  Widget _buildButtonOptions(double screenWidth) {
+    dev.log('Buttons width: ${getWidgetWidth(targetWidgetWidth: 110, screenWidth: screenWidth)}');
     return Row(
       children: [
         PrimaryButton(

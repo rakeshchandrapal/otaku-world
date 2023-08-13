@@ -104,7 +104,7 @@ class TrendingMangaScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: const SimpleAppBar(
-        title: 'Trending Anime',
+        title: 'Trending Manga',
       ),
       body: (trendingMangaHook.result.hasException &&
               ref.read(trendingMangaController.notifier).mediaList.isEmpty)
