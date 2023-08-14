@@ -4,54 +4,66 @@ import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
 import 'dart:developer' as dev;
 
 // For recommended anime screen
-final recommendedAnimeController = StateNotifierProvider<MediaGridControllerStateNotifier, bool>((ref) {
+final recommendedAnimeController =
+    StateNotifierProvider<MediaGridControllerStateNotifier, bool>((ref) {
   return MediaGridControllerStateNotifier();
 });
 
-final recommendedAnimeTopPositionController = StateNotifierProvider<MediaGridTopPositionController, bool>((ref) {
+final recommendedAnimeTopPositionController =
+    StateNotifierProvider<MediaGridTopPositionController, bool>((ref) {
   return MediaGridTopPositionController();
 });
 
-final recommendedAnimeBottomPositionController = StateNotifierProvider<MediaGridBottomPositionController, bool>((ref) {
+final recommendedAnimeBottomPositionController =
+    StateNotifierProvider<MediaGridBottomPositionController, bool>((ref) {
   return MediaGridBottomPositionController();
 });
 
 // For trending anime screen
-final trendingAnimeController = StateNotifierProvider<MediaGridControllerStateNotifier, bool>((ref) {
+final trendingAnimeController =
+    StateNotifierProvider<MediaGridControllerStateNotifier, bool>((ref) {
   return MediaGridControllerStateNotifier();
 });
 
-final trendingAnimeTopPositionController = StateNotifierProvider<MediaGridTopPositionController, bool>((ref) {
+final trendingAnimeTopPositionController =
+    StateNotifierProvider<MediaGridTopPositionController, bool>((ref) {
   return MediaGridTopPositionController();
 });
 
-final trendingAnimeBottomPositionController = StateNotifierProvider<MediaGridBottomPositionController, bool>((ref) {
+final trendingAnimeBottomPositionController =
+    StateNotifierProvider<MediaGridBottomPositionController, bool>((ref) {
   return MediaGridBottomPositionController();
 });
 
 // For recommended manga screen
-final recommendedMangaController = StateNotifierProvider<MediaGridControllerStateNotifier, bool>((ref) {
+final recommendedMangaController =
+    StateNotifierProvider<MediaGridControllerStateNotifier, bool>((ref) {
   return MediaGridControllerStateNotifier();
 });
 
-final recommendedMangaTopPositionController = StateNotifierProvider<MediaGridTopPositionController, bool>((ref) {
+final recommendedMangaTopPositionController =
+    StateNotifierProvider<MediaGridTopPositionController, bool>((ref) {
   return MediaGridTopPositionController();
 });
 
-final recommendedMangaBottomPositionController = StateNotifierProvider<MediaGridBottomPositionController, bool>((ref) {
+final recommendedMangaBottomPositionController =
+    StateNotifierProvider<MediaGridBottomPositionController, bool>((ref) {
   return MediaGridBottomPositionController();
 });
 
 // For trending manga screen
-final trendingMangaController = StateNotifierProvider<MediaGridControllerStateNotifier, bool>((ref) {
+final trendingMangaController =
+    StateNotifierProvider<MediaGridControllerStateNotifier, bool>((ref) {
   return MediaGridControllerStateNotifier();
 });
 
-final trendingMangaTopPositionController = StateNotifierProvider<MediaGridTopPositionController, bool>((ref) {
+final trendingMangaTopPositionController =
+    StateNotifierProvider<MediaGridTopPositionController, bool>((ref) {
   return MediaGridTopPositionController();
 });
 
-final trendingMangaBottomPositionController = StateNotifierProvider<MediaGridBottomPositionController, bool>((ref) {
+final trendingMangaBottomPositionController =
+    StateNotifierProvider<MediaGridBottomPositionController, bool>((ref) {
   return MediaGridBottomPositionController();
 });
 
@@ -122,9 +134,12 @@ class MediaGridControllerStateNotifier extends StateNotifier<bool> {
       pageCount--;
     }
     dev.log('Page count after decrement: $pageCount', name: 'Data');
-    Future.delayed(const Duration(seconds: 0), () {
-      state = false;
-    },);
+    Future.delayed(
+      const Duration(seconds: 0),
+      () {
+        state = false;
+      },
+    );
   }
 
   void setIsLoading(bool isLoading) {
@@ -137,10 +152,13 @@ class MediaGridControllerStateNotifier extends StateNotifier<bool> {
   void addToMediaList(List<Fragment$MediaShort?> newMediaList) {
     mediaList.addAll(newMediaList);
     dev.log('Media list size: ${mediaList.length}', name: 'Data');
-    Future.delayed(const Duration(seconds: 0), () {
-      state = false;
-      dev.log('Changed loading = $state after adding data', name: 'Data');
-    },);
+    Future.delayed(
+      const Duration(seconds: 0),
+      () {
+        state = false;
+        dev.log('Changed loading = $state after adding data', name: 'Data');
+      },
+    );
     // Future.delayed(const Duration(seconds: 5), () {
     //   notifyListeners();
     // },);

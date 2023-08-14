@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 String formatDurationFromMilliseconds(int milliseconds) {
   // Convert milliseconds to seconds
   int totalSeconds = milliseconds ~/ 1000;
@@ -19,4 +21,11 @@ String formatDurationFromSeconds(int seconds) {
 
   // Format the duration in 'dd:hh:mm' format
   return '${days.toString()}d ${hours.toString()}h ${minutes.toString()}m';
+}
+
+String formatUnixTimestamp(int unixTimestamp) {
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(unixTimestamp * 1000);
+  String formattedDate = DateFormat('E, d MMM yyyy').format(dateTime);
+  String formattedTime = DateFormat('h:mm a').format(dateTime);
+  return '$formattedDate at $formattedTime';
 }

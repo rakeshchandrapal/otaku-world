@@ -10,6 +10,7 @@ import 'package:otaku_world/features/manga_lists/screens/trending_manga_screen.d
 import 'package:otaku_world/features/media_slider/media_slider_screen.dart';
 import 'package:otaku_world/features/my_list/screens/my_list_screen.dart';
 import 'package:otaku_world/features/onboarding/screens/onboarding_screen.dart';
+import 'package:otaku_world/features/reviews/screens/review_screen.dart';
 import 'package:otaku_world/features/settings/screens/category_selection_screen.dart';
 import 'package:otaku_world/features/social/screen/social_screen.dart';
 import 'package:otaku_world/graphql/__generated/graphql/fragments.graphql.dart';
@@ -52,6 +53,11 @@ final router = GoRouter(
           mediaList: mediaList,
         );
       },
+    ),
+    GoRoute(
+      parentNavigatorKey: _rootNavigatorKey,
+      path: '/reviews',
+      builder: (context , state) => const ReviewsScreen(),
     ),
     GoRoute(
       parentNavigatorKey: _rootNavigatorKey,

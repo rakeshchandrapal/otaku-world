@@ -89,7 +89,8 @@ class HomeScreen extends HookConsumerWidget {
               ),
               child: FeatureCard(
                 onTap: () {
-                  showSnackBar(context, 'Coming soon..');
+                  // showSnackBar(context, 'Coming soon..');
+                  context.push('/reviews');
                 },
                 heading: HomeConstants.reviewsHeading,
                 subheading: HomeConstants.reviewsSubheading,

@@ -27,7 +27,7 @@ class AssetsConstants {
   static const String star = '$_iconsPath/star.svg';
   static const String favourite = '$_iconsPath/favourite.svg';
   static const String lineVertical = '$_iconsPath/line_vertical.svg';
-
+  static const String thumpsUp ='$_iconsPath/thumbs-up.svg';
   // Bottom Navigation Icons
   static const String home = '$_iconsPath/home.svg';
   static const String search = '$_iconsPath/search.svg';
@@ -40,4 +40,5 @@ class AssetsConstants {
   static const String placeHolderImage100x147 = '$_placeholderImagesPath/100x147.png';
   static const String placeHolderImage110x162 = '$_placeholderImagesPath/110x162.png';
   static const String placeHolderImage210x310 = '$_placeholderImagesPath/210x310.png';
+  static const String placeHolderImage340x72 = '$_placeholderImagesPath/340x72.png';
 }

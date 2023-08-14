@@ -26,6 +26,7 @@ class MediaGridView extends StatelessWidget {
         horizontal: 10,
       ),
       child: GridView.builder(
+        padding: const EdgeInsets.only(bottom: 60,),
         shrinkWrap: true,
         controller: controller,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
